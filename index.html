@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zoomi — The Cat Exercise Wheel That Burns the Zoomies</title>
+<meta name="description" content="Zoomi is a silent, sturdy cat exercise wheel built for high-energy indoor cats. Burns pent-up energy, ends the 3am zoomies. 90-day 'they'll use it or your money back' guarantee, free training guide, lifetime warranty, free shipping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Montserrat:wght@500;600;700;800;900&display=swap">
+<style>
+/* ═══════════════════════════════════════════════════════
+   ZOOMI — mobile-first responsive engine
+   ═══════════════════════════════════════════════════════ */
+:root{
+  --font-heading:"Montserrat",Arial,sans-serif;
+  --font-body:"Archivo",Arial,sans-serif;
+  --c-text:#21211E;
+  --c-bg1:#ffffff;
+  --c-bg2:#F7F2EB;
+  --c-accent1:#E25C3B;
+  --c-accent2:#1F7A6B;
+  --c-btn:#E25C3B;
+  --c-btn-text:#ffffff;
+  --c-dark:#1C1C1A;
+  --c-green:#2E9E6B;
+  --c-stars:#F2A93B;
+  --c-accent1-light:rgba(226,92,59,0.08);
+  --radius-btn:999px;
+  --max-w:680px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);font-size:18px;line-height:1.7;color:var(--c-text);background:var(--c-bg1);-webkit-font-smoothing:antialiased}
+html body img{height:auto;max-width:100%;display:block}
+a{color:var(--c-accent1);text-decoration:none}
+.lp-wrap{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+.lp-anno{background:var(--c-dark);padding:9px 20px;text-align:center}
+.lp-anno-inner{max-width:var(--max-w);margin:0 auto;font-family:var(--font-heading);font-size:12px;font-weight:500;letter-spacing:0.03em;color:rgba(255,255,255,0.9);line-height:1.5}
+.lp-anno-inner b{color:var(--c-stars)}
+.lp-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--c-bg2)}
+.lp-header-inner{max-width:var(--max-w);margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lp-logo{font-family:var(--font-heading);font-weight:800;font-size:23px;letter-spacing:-0.02em;color:var(--c-text)}
+.lp-logo span{color:var(--c-accent1)}
+.lp-nav-cta{background:var(--c-accent1);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:13px;padding:9px 18px;border-radius:var(--radius-btn);white-space:nowrap}
+.lp-btn{display:block;width:100%;background:var(--c-btn);color:var(--c-btn-text);font-family:var(--font-heading);font-size:18px;font-weight:700;letter-spacing:0.02em;padding:17px 24px;border:none;border-radius:var(--radius-btn);cursor:pointer;text-align:center;text-decoration:none;transition:background 0.18s,transform 0.1s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:54px}
+.lp-btn:hover,.lp-btn:active{background:#c84a2c;color:#fff;transform:translateY(-1px)}
+.lp-btn.ghost{background:transparent;color:var(--c-accent1);border:1.5px solid var(--c-accent1)}
+.lp-btn.ghost:hover{background:var(--c-accent1);color:#fff}
+.lp-sec{background:var(--c-bg1);padding:44px 20px}
+.lp-sec.bg2{background:var(--c-bg2)}
+.lp-sec.dark{background:var(--c-dark)}
+.lp-inner{max-width:var(--max-w);margin:0 auto}
+.lp-eyebrow{font-family:var(--font-heading);font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-accent1);text-align:center;margin-bottom:8px}
+.lp-sec.dark .lp-eyebrow{color:var(--c-stars)}
+.lp-h2{font-family:var(--font-heading);font-size:24px;font-weight:800;line-height:1.22;color:var(--c-text);text-align:center;margin-bottom:14px}
+.lp-sec.dark .lp-h2{color:#fff}
+.lp-hero{background:linear-gradient(180deg,var(--c-bg2),#fff);padding:36px 20px 40px;text-align:center}
+.lp-hero-inner{max-width:var(--max-w);margin:0 auto}
+.lp-hero h1{font-family:var(--font-heading);font-size:30px;font-weight:800;line-height:1.18;letter-spacing:-0.01em;color:var(--c-text);margin:8px 0 14px}
+.lp-hero p.sub{font-size:17px;color:#444;margin:0 auto 18px;max-width:520px}
+.lp-hero .lp-rating{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-weight:600;font-size:15px;margin-bottom:18px}
+.lp-stars{color:var(--c-stars);letter-spacing:1px;font-size:16px}
+.lp-hero-img{max-width:var(--max-w);margin:24px auto 0;border-radius:16px;overflow:hidden;box-shadow:0 18px 48px rgba(28,28,26,0.14)}
+.lp-hero-img img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.lp-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
+.lp-pill{background:#fff;border:1px solid var(--c-bg2);border-radius:var(--radius-btn);padding:8px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
+.lp-pill .c{color:var(--c-green);font-weight:800}
+.lp-proof{background:var(--c-dark);color:#cfcabd;padding:20px;text-align:center}
+.lp-proof-inner{max-width:var(--max-w);margin:0 auto}
+.lp-proof .lead{font-size:14px;margin-bottom:14px}
+.lp-proof-nums{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 28px}
+.lp-proof-num{flex:1 1 130px}
+.lp-proof-num b{color:#fff;font-family:var(--font-heading);font-size:24px;display:block;line-height:1.1}
+.lp-proof-num span{font-size:13px}
+.lp-feat-img{max-width:var(--max-w);margin:0 auto 22px;border-radius:14px;overflow:hidden}
+.lp-feat-img img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.lp-feat-body{max-width:var(--max-w);margin:0 auto}
+.lp-rating{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;color:#6f6f68;margin-bottom:8px}
+.lp-feat-title{font-family:var(--font-heading);font-size:22px;font-weight:800;margin-bottom:8px}
+.lp-feat-price{font-family:var(--font-heading);font-weight:800;font-size:30px;margin-bottom:10px}
+.lp-feat-price .was{color:#9a948a;text-decoration:line-through;font-size:18px;font-weight:500;margin-left:8px}
+.lp-feat-body p{font-size:16px;color:#444;margin-bottom:12px;line-height:1.7}
+.lp-offer-list{list-style:none;margin:0 0 18px;border:1px solid var(--c-bg2);border-radius:14px;overflow:hidden;background:#fff}
+.lp-offer-list li{padding:12px 16px;display:flex;gap:12px;align-items:flex-start;font-size:15px;border-bottom:1px solid var(--c-bg2)}
+.lp-offer-list li:last-child{border-bottom:none}
+.lp-ck{flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--c-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:2px}
+.lp-bgrid{max-width:var(--max-w);margin:24px auto 0;display:flex;flex-direction:column;gap:12px}
+.lp-bcard{background:#fff;border:1px solid var(--c-bg2);border-radius:14px;padding:22px}
+.lp-bcard .ic{width:46px;height:46px;border-radius:12px;background:var(--c-accent1-light);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+.lp-bcard h3{font-family:var(--font-heading);font-size:18px;font-weight:700;margin-bottom:6px}
+.lp-bcard p{font-size:15px;color:#6f6f68;line-height:1.6}
+.lp-story-img{max-width:var(--max-w);margin:0 auto 20px;border-radius:14px;overflow:hidden}
+.lp-story-img img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.lp-story-body{max-width:var(--max-w);margin:0 auto}
+.lp-story-body p{font-size:17px;color:#444;margin-bottom:14px;line-height:1.7}
+.lp-rgrid{max-width:var(--max-w);margin:24px auto 0;display:flex;flex-direction:column;gap:14px}
+.lp-rcard{background:#fff;border:1px solid var(--c-bg2);border-radius:16px;padding:20px}
+.lp-rcard img{border-radius:10px;margin-bottom:12px;width:100%;aspect-ratio:16/10;object-fit:cover}
+.lp-rcard p{font-size:15px;color:#444;margin:8px 0;line-height:1.6}
+.lp-nm{font-family:var(--font-heading);font-weight:700;font-size:14px}
+.lp-vf{color:var(--c-green);font-size:12px;font-weight:600;display:block;margin-top:2px}
+.lp-guar{background:var(--c-dark);padding:44px 20px;text-align:center}
+.lp-guar-inner{max-width:var(--max-w);margin:0 auto}
+.lp-guar h2{font-family:var(--font-heading);font-size:24px;font-weight:800;color:#fff;margin-bottom:24px;line-height:1.25}
+.lp-ggrid{display:flex;flex-direction:column;gap:12px;text-align:center}
+.lp-gc{background:rgba(255,255,255,0.06);border-radius:12px;padding:16px}
+.lp-gc .big{font-family:var(--font-heading);font-weight:800;font-size:30px;color:var(--c-stars)}
+.lp-gc p{color:rgba(255,255,255,0.78);font-size:14px;margin:4px 0 0}
+.lp-guar .lp-btn{background:#fff;color:#c84a2c;margin-top:24px}
+.lp-guar .lp-btn:hover{background:#f3ede4;color:#c84a2c}
+/* steps */
+.lp-steps{max-width:var(--max-w);margin:22px auto 0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.lp-step{background:#fff;border:1px solid var(--c-bg2);border-radius:14px;padding:18px 18px 18px 60px;position:relative}
+.lp-step::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--c-accent1);color:#fff;font-family:var(--font-heading);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.lp-step h3{font-family:var(--font-heading);font-size:17px;font-weight:700;margin-bottom:4px}
+.lp-step p{font-size:15px;color:#6f6f68;line-height:1.6}
+/* comparison */
+.lp-cmp{max-width:var(--max-w);margin:22px auto 0;border:1px solid var(--c-bg2);border-radius:14px;overflow:hidden;background:#fff;font-size:14px}
+.lp-cmp .row{display:grid;grid-template-columns:1fr 88px 88px;align-items:center}
+.lp-cmp .row+.row{border-top:1px solid var(--c-bg2)}
+.lp-cmp .row.head{background:var(--c-dark);color:#fff}
+.lp-cmp .row.head>div{font-family:var(--font-heading);font-weight:700;font-size:12px;text-align:center;padding:12px 6px}
+.lp-cmp .row.head>div:first-child{text-align:left;padding-left:14px}
+.lp-cmp .c0{padding:11px 14px;color:#444}
+.lp-cmp .c1,.lp-cmp .c2{text-align:center;padding:11px 6px;font-weight:700}
+.lp-cmp .c1{color:var(--c-green);background:var(--c-accent1-light)}
+.lp-cmp .c2{color:#b9b3a8}
+/* faq */
+.lp-faq{max-width:var(--max-w);margin:22px auto 0}
+.lp-faq details{background:#fff;border:1px solid var(--c-bg2);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.lp-faq summary{padding:16px 18px;font-family:var(--font-heading);font-weight:700;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.lp-faq summary::-webkit-details-marker{display:none}
+.lp-faq summary::after{content:"+";font-size:22px;color:var(--c-accent1);font-weight:400;line-height:1}
+.lp-faq details[open] summary::after{content:"–"}
+.lp-faq .a{padding:0 18px 16px;font-size:15px;color:#555;line-height:1.65}
+.lp-footer{background:#191916;color:#b8b3a8;padding:40px 20px 26px;font-size:14px}
+.lp-footer-inner{max-width:var(--max-w);margin:0 auto}
+.lp-fcols{display:flex;flex-direction:column;gap:26px}
+.lp-flogo{font-family:var(--font-heading);font-weight:800;font-size:21px;color:#fff}
+.lp-flogo span{color:var(--c-accent1)}
+.lp-footer h4{font-family:var(--font-heading);color:#fff;font-size:15px;margin-bottom:10px}
+.lp-footer a{display:block;padding:4px 0;color:#b8b3a8}
+.lp-footer a:hover{color:#fff}
+.lp-fcontact{margin-top:12px;line-height:1.7}
+.lp-fbot{border-top:1px solid #3a3a35;margin-top:28px;padding-top:18px;display:flex;flex-direction:column;gap:8px;font-size:12px}
+@media (min-width:560px){
+  .lp-hero h1{font-size:38px}
+  .lp-h2{font-size:28px}
+  .lp-guar h2{font-size:28px}
+  .lp-bgrid{flex-direction:row;flex-wrap:wrap}
+  .lp-bcard{flex:1 1 calc(50% - 6px);min-width:0}
+  .lp-ggrid{flex-direction:row;flex-wrap:wrap}
+  .lp-gc{flex:1 1 calc(50% - 6px);min-width:0}
+}
+@media (min-width:768px){body{font-size:19px}.lp-hero h1{font-size:44px}}
+.lp-pms{display:inline-flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap}.lp-pms svg{height:26px;width:auto;display:block;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18185356647"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18185356647');
+</script>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="lp-anno"><div class="lp-anno-inner">🐈 Free shipping &amp; free returns · <b>90-day "they'll use it or your money back"</b> · Lifetime frame warranty</div></div>
+
+<!-- HEADER -->
+<header class="lp-header">
+  <div class="lp-header-inner">
+    <a href="index.html" class="lp-logo">Zoom<span>i</span></a>
+    <a href="product.html" class="lp-nav-cta">Shop the Wheel</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="lp-hero">
+  <div class="lp-hero-inner">
+    <div class="lp-eyebrow">The cat exercise wheel, done right</div>
+    <h1>For the indoor cat who treats your home like a racetrack.</h1>
+    <p class="sub">Zoomi gives all that pent-up energy somewhere to go — turning the 3am zoomies, the shredded couch and the restless 2am meowing into a happy, tired, well-exercised cat.</p>
+    <div class="lp-rating"><span class="lp-stars">★★★★★</span> <span>4.8/5 · 9,000+ cats running on Zoomi</span></div>
+    <a href="product.html" class="lp-btn">Burn the zoomies — shop Zoomi →</a>
+    <div class="lp-pills">
+      <span class="lp-pill"><span class="c">✓</span> 90-day money-back</span>
+      <span class="lp-pill"><span class="c">✓</span> Free shipping &amp; returns</span>
+      <span class="lp-pill"><span class="c">✓</span> Lifetime frame warranty</span>
+    </div>
+  </div>
+  <div class="lp-hero-img"><img src="images/lifestyle.jpg" alt="An indoor cat running on a Zoomi cat exercise wheel" loading="eager"></div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="lp-proof">
+  <div class="lp-proof-inner">
+    <div class="lead">Trusted by indoor-cat parents of Bengals, Savannahs, Sphynx &amp; everyday house cats</div>
+    <div class="lp-proof-nums">
+      <div class="lp-proof-num"><b>9,000+</b><span>cats running on Zoomi</span></div>
+      <div class="lp-proof-num"><b>4.8★</b><span>from 2,600+ reviews</span></div>
+      <div class="lp-proof-num"><b>30 lbs</b><span>weight capacity</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM / WHY -->
+<section class="lp-sec">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">Sound familiar?</div>
+    <h2 class="lp-h2">An indoor cat with nowhere to put the energy</h2>
+    <div class="lp-bgrid">
+      <div class="lp-bcard"><div class="ic">🌙</div><h3>3am zoomies</h3><p>Sprinting laps over your bed at full speed the moment you fall asleep.</p></div>
+      <div class="lp-bcard"><div class="ic">🛋️</div><h3>Destroyed furniture</h3><p>Bored energy goes into your couch, curtains and every shelf in the house.</p></div>
+      <div class="lp-bcard"><div class="ic">⚖️</div><h3>The indoor pudge</h3><p>No outlet means weight creeps on — the #1 health risk for indoor cats.</p></div>
+      <div class="lp-bcard"><div class="ic">😼</div><h3>Restless &amp; vocal</h3><p>Pacing, crying and pent-up frustration from a body built to run and hunt.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:18px;font-size:16px;color:#555">Your cat isn't being "bad." They're an athlete stuck in an apartment. <b>Zoomi gives them their racetrack.</b></p>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCT -->
+<section class="lp-sec bg2">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">The wheel everyone's talking about</div>
+    <h2 class="lp-h2">The Zoomi Cat Exercise Wheel</h2>
+  </div>
+  <div class="lp-feat-img"><img src="images/prod_main.jpg" alt="Zoomi cat exercise wheel in black" loading="lazy"></div>
+  <div class="lp-feat-body">
+    <div class="lp-rating"><span class="lp-stars">★★★★★</span> <span>4.8 (2,617 reviews)</span></div>
+    <div class="lp-feat-title">Zoomi Cat Exercise Wheel — Black or White</div>
+    <div class="lp-feat-price">$199 <span class="was">$279</span></div>
+    <p>A full-size 40" wheel with a silent roller-bearing system, a soft no-slip felt track, and a furniture-grade wood frame that holds cats up to 30 lbs — so even big breeds get a real run without waking the house.</p>
+    <ul class="lp-offer-list">
+      <li><span class="lp-ck">✓</span><span><b>90-day guarantee:</b> if your cat won't use it, send it back for a full refund</span></li>
+      <li><span class="lp-ck">✓</span><span>Free <b>Get-Them-Running</b> training guide ($29 value)</span></li>
+      <li><span class="lp-ck">✓</span><span>Free shipping &amp; returns · Lifetime frame warranty</span></li>
+    </ul>
+    <a href="product.html" class="lp-btn">Choose your color &amp; checkout →</a>
+  </div>
+</section>
+
+<!-- OBJECTION CRUSHER -->
+<section class="lp-sec">
+  <div class="lp-inner">
+    <div class="lp-eyebrow" style="color:var(--c-accent2)">The honest question</div>
+    <h2 class="lp-h2">"But will my cat actually use it?"</h2>
+    <p style="text-align:center;font-size:16px;color:#555;max-width:560px;margin:0 auto 6px">It's the #1 thing every cat owner asks — and most wheels leave you guessing. So we built the answer into the offer.</p>
+    <div class="lp-steps">
+      <div class="lp-step"><h3>Every Zoomi ships with our training system</h3><p>A step-by-step guide and treat-luring method that gets most cats curiously stepping on within the first few days — even shy ones.</p></div>
+      <div class="lp-step"><h3>A wheel cats actually want to use</h3><p>The 43" diameter and soft felt track feel natural underfoot, so cats run instead of slip. Big enough for a full stride, quiet enough they're not spooked.</p></div>
+      <div class="lp-step"><h3>90 days to fall in love — or your money back</h3><p>Give it an honest try. If your cat truly won't take to it within 90 days, send it back for a full refund. The risk is entirely on us.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="lp-sec bg2">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">Why Zoomi</div>
+    <h2 class="lp-h2">Engineered to be the one they'll run on</h2>
+    <div class="lp-bgrid">
+      <div class="lp-bcard"><div class="ic">🤫</div><h3>Genuinely silent</h3><p>Precision roller bearings spin smooth and quiet — no clatter or wobble at 3am, no spooked cats.</p></div>
+      <div class="lp-bcard"><div class="ic">🐾</div><h3>Big &amp; safe — 30 lb cap</h3><p>A full 40" wheel with a soft felt track. Built for Maine Coons and big breeds, gentle on spines.</p></div>
+      <div class="lp-bcard"><div class="ic">🪵</div><h3>Furniture-grade looks</h3><p>A clean wood-frame design in black or white that fits your living room — not an eyesore in the corner.</p></div>
+      <div class="lp-bcard"><div class="ic">🛡️</div><h3>Built to last a lifetime</h3><p>A solid frame and replaceable track, backed by our lifetime frame warranty.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="lp-sec">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">Up and running fast</div>
+    <h2 class="lp-h2">From box to zoomies in 3 steps</h2>
+    <div class="lp-steps">
+      <div class="lp-step"><h3>Assemble in ~20 minutes</h3><p>Tool-light setup, clear instructions. It arrives flat and goes together fast.</p></div>
+      <div class="lp-step"><h3>Lure &amp; reward</h3><p>Follow the free training guide — a wand toy or treat trail teaches your cat the wheel turns. Most catch on within days.</p></div>
+      <div class="lp-step"><h3>Watch the energy disappear</h3><p>Self-directed sprints whenever the urge hits. A tired cat is a calm, happy, well-behaved cat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="lp-sec bg2">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">The difference</div>
+    <h2 class="lp-h2">Zoomi vs. an ordinary cat wheel</h2>
+    <div class="lp-cmp">
+      <div class="row head"><div>&nbsp;</div><div>Zoomi</div><div>Ordinary</div></div>
+      <div class="row"><div class="c0">Silent roller bearings</div><div class="c1">✓</div><div class="c2">Rattles</div></div>
+      <div class="row"><div class="c0">Holds up to 30 lbs</div><div class="c1">✓</div><div class="c2">~22 lbs</div></div>
+      <div class="row"><div class="c0">Soft no-slip felt track</div><div class="c1">✓</div><div class="c2">Slippery</div></div>
+      <div class="row"><div class="c0">Free training guide</div><div class="c1">✓</div><div class="c2">✗</div></div>
+      <div class="row"><div class="c0">90-day money-back</div><div class="c1">✓</div><div class="c2">14 days</div></div>
+      <div class="row"><div class="c0">Lifetime frame warranty</div><div class="c1">✓</div><div class="c2">None</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="lp-sec">
+  <div class="lp-story-img"><img src="images/scale.jpg" alt="A Zoomi cat exercise wheel in a living room" loading="lazy"></div>
+  <div class="lp-story-body">
+    <div class="lp-eyebrow" style="text-align:left">Our story</div>
+    <h2 class="lp-h2" style="text-align:left">We built Zoomi for one wired indoor cat.</h2>
+    <p>Our Bengal treated the apartment like a track and field event — 3am sprints, knocked-over plants, a couch that didn't stand a chance. The cheap wheels we tried were loud, tippy, and he wouldn't touch them.</p>
+    <p>So we built the wheel we wished existed: quiet, sturdy, big enough for a real run, and good-looking enough to live in the living room. Today 9,000+ cats run on Zoomi — and their humans finally sleep through the night.</p>
+    <a href="about.html" class="lp-btn ghost" style="margin-top:6px">Read our story →</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="lp-sec bg2">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">★★★★★ 4.8 from 2,600+ reviews</div>
+    <h2 class="lp-h2">Cats who finally have somewhere to run</h2>
+    <div class="lp-rgrid">
+      <div class="lp-rcard"><img src="images/home_rev2.jpg" alt="Cat running on a Zoomi wheel" loading="lazy"><div class="lp-stars">★★★★★</div><p>"My Savannah is a speed demon. Within five minutes of following the guide she was running on it herself. The 3am zoomies on my face are officially over."</p><div class="lp-nm">Mara T.<span class="lp-vf">✓ Verified buyer</span></div></div>
+      <div class="lp-rcard"><img src="images/prod_rev1.jpg" alt="Bengal cat on a Zoomi wheel" loading="lazy"><div class="lp-stars">★★★★★</div><p>"I have two Bengals and they use it almost constantly. It's genuinely silent — I can't believe how much calmer the apartment is. Worth every penny."</p><div class="lp-nm">Devon R.<span class="lp-vf">✓ Verified buyer</span></div></div>
+      <div class="lp-rcard"><img src="images/home_rev1.jpg" alt="Tabby cat on a white Zoomi wheel" loading="lazy"><div class="lp-stars">★★★★★</div><p>"I held off because it's a pricey 'toy.' Now it's the best thing I've bought for her — less pudge, way less destruction, and it actually looks nice in white."</p><div class="lp-nm">Priya S.<span class="lp-vf">✓ Verified buyer</span></div></div>
+    </div>
+    <a href="product.html#reviews" class="lp-btn" style="margin-top:24px">Shop the wheel →</a>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="lp-guar">
+  <div class="lp-guar-inner">
+    <div class="lp-eyebrow" style="color:var(--c-stars)">Zero risk to you</div>
+    <h2>Try it for 90 days. Your cat decides.</h2>
+    <div class="lp-ggrid">
+      <div class="lp-gc"><div class="big">90</div><p>day money-back guarantee</p></div>
+      <div class="lp-gc"><div class="big">Life</div><p>lifetime frame warranty</p></div>
+      <div class="lp-gc"><div class="big">$0</div><p>shipping &amp; returns</p></div>
+      <div class="lp-gc"><div class="big">$29</div><p>training guide, free</p></div>
+    </div>
+    <a href="product.html" class="lp-btn">Get the Zoomi wheel →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="lp-sec">
+  <div class="lp-inner">
+    <div class="lp-eyebrow">Good questions</div>
+    <h2 class="lp-h2">Before you buy</h2>
+    <div class="lp-faq">
+      <details open><summary>What if my cat won't use it?</summary><div class="a">Most cats take to the wheel within a few days using our free training guide. But if yours truly won't — for any reason — you have a full 90 days to send it back for a complete refund. The risk is on us, not you.</div></details>
+      <details><summary>Is it noisy? I have anxious cats.</summary><div class="a">No. Zoomi runs on precision roller bearings designed to be near-silent, with no wobble. That quiet, stable motion is exactly why nervous cats are willing to step on in the first place.</div></details>
+      <details><summary>How big is it, and will my cat fit?</summary><div class="a">The wheel is a full 40" (about 100 cm tall) — large enough for a natural, spine-safe stride. It comfortably handles cats up to 30 lbs, including Maine Coons and other big breeds.</div></details>
+      <details><summary>Is it hard to assemble?</summary><div class="a">No — it arrives flat and goes together in about 20 minutes with clear step-by-step instructions and minimal tools.</div></details>
+      <details><summary>What does shipping cost?</summary><div class="a">Shipping is completely free within the US, and so are returns. Most orders arrive within 3–6 business days.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="lp-footer">
+  <div class="lp-footer-inner">
+    <div class="lp-fcols">
+      <div>
+        <div class="lp-flogo">Zoom<span>i</span></div>
+        <p style="margin-top:12px">Silent, sturdy cat exercise wheels that give high-energy indoor cats somewhere to run.</p>
+        <p class="lp-fcontact">📧 support@zoomi.shop<br>📞 (888) 555-0142<br>Mon–Fri, 9am–6pm EST</p>
+      </div>
+      <div><h4>Shop</h4>
+        <a href="product.html">Cat Exercise Wheel</a><a href="product.html#specs">Specs &amp; Sizing</a><a href="product.html#reviews">Reviews</a><a href="about.html">About Us</a>
+      </div>
+      <div><h4>Support</h4>
+        <a href="order-tracking.html">Track My Order</a><a href="returns.html">Returns &amp; Refunds</a><a href="warranty.html">Warranty</a><a href="shipping.html">Shipping</a><a href="contact.html">Contact Us</a>
+      </div>
+      <div><h4>Legal</h4>
+        <a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="returns.html">Refund Policy</a><a href="shipping.html">Shipping Policy</a>
+      </div>
+    </div>
+    <div class="lp-fbot">
+      <div>© 2026 Zoomi. All rights reserved.</div>
+      <div class="lp-pms" aria-label="Accepted payment methods">
+        <svg viewBox="0 0 40 26" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visa"><rect width="40" height="26" rx="4" fill="#fff" stroke="#e5e0d6"/><text x="20" y="17.5" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" font-style="italic" fill="#1A1F71" text-anchor="middle">VISA</text></svg>
+        <svg viewBox="0 0 40 26" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mastercard"><rect width="40" height="26" rx="4" fill="#fff" stroke="#e5e0d6"/><circle cx="16.5" cy="13" r="6.5" fill="#EB001B"/><circle cx="23.5" cy="13" r="6.5" fill="#F79E1B"/><path d="M20 8.1a6.5 6.5 0 0 0 0 9.8 6.5 6.5 0 0 0 0-9.8z" fill="#FF5F00"/></svg>
+        <svg viewBox="0 0 40 26" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="American Express"><rect width="40" height="26" rx="4" fill="#1F72CD"/><text x="20" y="16" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing=".3">AMEX</text></svg>
+        <svg viewBox="0 0 52 26" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Apple Pay"><rect width="52" height="26" rx="4" fill="#fff" stroke="#e5e0d6"/><g transform="translate(9,5.5) scale(.6)"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z" fill="#000"/></g><text x="36" y="17.5" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="600" fill="#000" text-anchor="middle">Pay</text></svg>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

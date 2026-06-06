@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order Confirmed | Zoomi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap">
+<style>
+:root{--font-heading:"Montserrat",Arial,sans-serif;--font-body:"Archivo",Arial,sans-serif;--c-text:#21211E;--c-bg2:#F7F2EB;--c-accent1:#E25C3B;--c-green:#2E9E6B;--radius-btn:999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);font-size:16px;line-height:1.6;color:var(--c-text);background:var(--c-bg2);-webkit-font-smoothing:antialiased}
+.ty-wrap{max-width:520px;margin:0 auto;padding:64px 20px;text-align:center}
+.ty-check{width:74px;height:74px;border-radius:50%;background:var(--c-green);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+h1{font-family:var(--font-heading);font-weight:800;font-size:28px;margin-bottom:10px}
+p{color:#555;margin-bottom:8px}
+.ty-card{background:#fff;border:1px solid #ece7dd;border-radius:14px;padding:20px;margin:26px 0;text-align:left}
+.ty-card .r{display:flex;justify-content:space-between;margin:6px 0;font-size:15px}
+.ty-card .t{font-family:var(--font-heading);font-weight:800;border-top:1px solid #ece7dd;margin-top:10px;padding-top:10px}
+.ty-btn{display:inline-block;background:var(--c-accent1);color:#fff;font-family:var(--font-heading);font-weight:700;padding:14px 30px;border-radius:var(--radius-btn);margin-top:8px}
+.ty-logo{font-family:var(--font-heading);font-weight:800;font-size:22px;color:var(--c-text);margin-bottom:30px;display:inline-block}
+.ty-logo span{color:var(--c-accent1)}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18185356647"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18185356647');
+</script>
+</head>
+<body>
+<div class="ty-wrap">
+  <a href="index.html" class="ty-logo">Zoom<span>i</span></a>
+  <div class="ty-check">✓</div>
+  <h1>Order confirmed!</h1>
+  <p>Thank you. A confirmation has been sent to your email.</p>
+  <p>Your Zoomi wheel ships free in 1–2 business days.</p>
+  <div class="ty-card">
+    <div class="r"><span>Zoomi Cat Exercise Wheel</span><span>$199.00</span></div>
+    <div class="r"><span>Get-Them-Running training guide</span><span style="color:var(--c-green);font-weight:700">FREE</span></div>
+    <div class="r"><span>Shipping</span><span style="color:var(--c-green);font-weight:700">FREE</span></div>
+    <div class="r t"><span>Total paid</span><span>$199.00</span></div>
+  </div>
+  <p style="font-size:14px">Backed by your 90-day money-back guarantee and lifetime frame warranty.</p>
+  <a href="index.html" class="ty-btn">Back to Zoomi</a>
+</div>
+<script>
+(function(){ try{
+  if(sessionStorage.getItem('zoomi_conv')) return;
+  var v=parseFloat(new URLSearchParams(location.search).get('value'))||199;
+  gtag('event','conversion',{'send_to':'AW-18185356647/ZOOMI_CONV_LABEL','value':v,'currency':'USD'});
+  sessionStorage.setItem('zoomi_conv','1');
+}catch(e){} })();
+</script>
+</body>
+</html>

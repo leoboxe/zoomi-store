@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Secure Checkout | Zoomi</title>
+<meta name="description" content="Complete your Zoomi order � secure checkout. 90-day guarantee, lifetime warranty, free shipping.">
+
+<meta property="og:title" content="Secure Checkout | Zoomi">
+<meta property="og:description" content="Complete your Zoomi order � secure checkout. 90-day guarantee, lifetime warranty, free shipping.">
+<link rel="preconnect" href="https://js.stripe.com" crossorigin><link rel="preconnect" href="https://cdn.shopify.com" crossorigin><link rel="dns-prefetch" href="https://js.stripe.com"><link rel="dns-prefetch" href="https://cdn.shopify.com"><link rel="dns-prefetch" href="https://api-pi-pied-75.vercel.app"><link rel="prefetch" href="/thankyou.html">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;color:#2B2B28;background:#fff;-webkit-font-smoothing:antialiased}
+.ck-wrap{max-width:1000px;margin:0 auto;display:flex;min-height:100vh}
+.ck-main{flex:1;padding:32px 40px 40px;max-width:580px}
+.ck-sidebar{width:420px;background:#fafafa;border-left:1px solid #e5e5e5;padding:32px 40px;position:relative}
+.ck-sidebar-inner{position:sticky;top:32px}
+
+/* Header */
+.ck-header{text-align:center;padding:20px 0 16px;border-bottom:1px solid #e5e5e5;margin-bottom:24px}
+.ck-logo{height:40px;margin-bottom:4px}
+.ck-stars{color:#E0A92E;font-size:14px;letter-spacing:2px}
+.ck-rating{font-size:12px;color:#999;margin-top:2px}
+.ck-bag{position:absolute;right:40px;top:24px;color:#555}
+.ck-bag svg{width:22px;height:22px}
+
+/* Form inputs — Shopify style */
+.ck-section{margin-bottom:24px}
+.ck-section h2{font-size:16px;font-weight:600;margin-bottom:12px;color:#2B2B28}
+.ck-section .ck-sub{font-size:13px;color:#707070;margin-bottom:16px;line-height:1.5}
+.ck-field{position:relative;margin-bottom:12px}
+.ck-field input,.ck-field select{width:100%;height:48px;padding:18px 12px 6px;border:1px solid #d9d9d9;border-radius:6px;font-size:14px;font-family:inherit;background:#fff;color:#2B2B28;outline:none;transition:border-color .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
+.ck-field select{padding-top:18px;padding-bottom:6px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23999' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.ck-field label{position:absolute;top:50%;left:12px;transform:translateY(-50%);font-size:14px;color:#999;pointer-events:none;transition:transform .15s ease,font-size .15s ease,color .15s ease}
+.ck-field input:focus,.ck-field select:focus{border-color:#E25C3B;box-shadow:0 0 0 1px #E25C3B}
+.ck-field input:focus+label,.ck-field input:not(:placeholder-shown)+label,.ck-field select:focus+label,.ck-field.has-value label{transform:translateY(-14px);font-size:11px;color:#707070}
+.ck-field.ck-error input,.ck-field.ck-error select{border-color:#e32c2c;background:#fff5f5}
+.ck-error-text{color:#e32c2c;font-size:13px;margin-top:4px}
+.ck-row{display:flex;gap:12px}
+.ck-row .ck-field{flex:1}
+.ck-row3{display:flex;gap:12px}
+.ck-row3 .ck-field:nth-child(1){flex:1.3}
+.ck-row3 .ck-field:nth-child(2){flex:1}
+.ck-row3 .ck-field:nth-child(3){flex:1}
+
+/* Stripe element */
+#card-element{height:48px;padding:14px 12px;border:1px solid #d9d9d9;border-radius:6px;background:#fff;transition:border-color .15s,box-shadow .15s}
+#card-element.StripeElement--focus{border-color:#E25C3B;box-shadow:0 0 0 1px #E25C3B}
+#card-element.StripeElement--invalid{border-color:#e32c2c}
+#card-error{color:#e32c2c;font-size:13px;margin-top:8px;min-height:20px}
+.ck-secure-box{background:#f5f5f5;border-radius:6px;padding:12px 16px;text-align:center;color:#707070;font-size:13px;margin-top:12px}
+
+/* CTA button */
+.ck-cta{width:100%;height:54px;background:#E25C3B;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;transition:background .15s;font-family:inherit;margin-top:8px}
+.ck-cta:hover{background:#c84a2c}
+.ck-cta:disabled{opacity:.7;cursor:not-allowed}
+.ck-cta .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Footer */
+.ck-footer{margin-top:24px;padding-top:16px;border-top:1px solid #e5e5e5;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.ck-footer a{color:#E25C3B;font-size:12px;text-decoration:none}
+.ck-footer a:hover{text-decoration:underline}
+
+/* Order summary */
+.ck-product{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.ck-product-img{position:relative;width:64px;height:64px;flex-shrink:0}
+.ck-product-img img{width:64px;height:64px;border-radius:8px;object-fit:cover;border:1px solid #e5e5e5}
+.ck-product-badge{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#E25C3B;color:#fff;border-radius:50%;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.ck-product-info{flex:1;min-width:0}
+.ck-product-name{font-size:14px;font-weight:500;color:#2B2B28}
+.ck-product-variant{font-size:12px;color:#999}
+.ck-product-price{font-size:14px;font-weight:500;white-space:nowrap;margin-left:8px}
+.ck-divider{border:none;border-top:1px solid #e5e5e5;margin:16px 0}
+.ck-summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:14px;color:#2B2B28}
+.ck-summary-row.ck-total{font-size:16px;font-weight:700;margin-top:16px;padding-top:16px;border-top:1px solid #e5e5e5}
+.ck-total-currency{font-size:12px;color:#999;font-weight:400;margin-right:6px}
+.ck-total-price{font-size:20px}
+.ck-free{color:#2e7d32}
+
+/* Mobile order summary toggle */
+.ck-mobile-summary{display:none;background:#eef0ea;border-bottom:1px solid #e5e5e5;padding:14px 20px;cursor:pointer}
+.ck-mobile-summary-bar{display:flex;justify-content:space-between;align-items:center}
+.ck-mobile-summary-left{display:flex;align-items:center;gap:8px;color:#E25C3B;font-size:14px;font-weight:500}
+.ck-mobile-summary-left svg{width:18px;height:18px}
+.ck-mobile-summary-right{font-size:16px;font-weight:700}
+.ck-mobile-summary-content{display:none;padding-top:16px}
+.ck-mobile-summary.open .ck-mobile-summary-content{display:block}
+.ck-mobile-summary.open .ck-arrow{transform:rotate(180deg)}
+.ck-arrow{transition:transform .2s;margin-left:4px}
+
+/* Mobile responsive */
+@media(max-width:750px){
+  .ck-wrap{flex-direction:column}
+  .ck-main{max-width:100%;padding:20px 16px 32px;order:2}
+  .ck-sidebar{display:none}
+  .ck-mobile-summary{display:block;order:1}
+  .ck-header{padding:16px 0 12px}
+  .ck-bag{right:16px;top:18px}
+  .ck-row,.ck-row3{flex-direction:column;gap:12px}
+  .ck-row3{flex-direction:row}
+}
+@media(max-width:480px){
+  .ck-row3{flex-direction:column}
+}
+
+/* Apple Pay express checkout */
+.ck-or-divider{text-align:center;position:relative;margin:20px 0 4px;height:1px;background:#e5e5e5}
+.ck-or-divider span{background:#fff;padding:0 14px;font-size:13px;color:#999;position:relative;top:-9px}
+#payment-request-button{min-height:48px}
+#express-checkout-section{animation:ck-fadein .3s ease-out}
+@keyframes ck-fadein{from{opacity:0}to{opacity:1}}
+
+
+/* ==== ck-test-redesign v1 ==== */
+
+/* Reservation banner — bigger text, calm, top of page */
+.ck-reserve-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #f7f5f0;
+  border-bottom: 1px solid #e6e1d5;
+  color: #5c4a2a;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: center;
+}
+.ck-reserve-banner .ck-reserve-lock svg { width: 16px; height: 16px; }
+.ck-reserve-timer { font-size: 16px; }
+.ck-reserve-banner.ck-reserve-expired {
+  background: #f2f7f0;
+  border-bottom-color: #d8e8d0;
+  color: #2e4a2e;
+}
+.ck-reserve-lock {
+  display: inline-flex;
+  align-items: center;
+  color: #8a6a2a;
+}
+.ck-reserve-banner.ck-reserve-expired .ck-reserve-lock { color: #2e7d32; }
+.ck-reserve-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #2B2B28;
+}
+
+/* Express-checkout skeleton + visibility */
+#express-checkout-section { display: block; }
+.ck-pr-skeleton {
+  height: 48px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #f3f3f3 0%, #e9e9e9 50%, #f3f3f3 100%);
+  background-size: 200% 100%;
+  animation: ck-skeleton 1.2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 13px;
+}
+@keyframes ck-skeleton {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Reviews section */
+.ck-reviews-section h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #2B2B28;
+}
+.ck-reviews-top {
+  display: flex;
+  gap: 24px;
+  padding: 16px 18px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.ck-reviews-score { text-align: center; flex-shrink: 0; min-width: 110px; }
+.ck-reviews-bignum { font-size: 40px; font-weight: 700; line-height: 1; color: #2B2B28; }
+.ck-reviews-score .ck-reviews-stars { color: #E0A92E; font-size: 16px; letter-spacing: 2px; margin-top: 4px; }
+.ck-reviews-meta { font-size: 11px; color: #707070; margin-top: 4px; }
+.ck-reviews-bars { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+.ck-reviews-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #707070; }
+.ck-reviews-bar-label { width: 22px; font-weight: 600; color: #2B2B28; }
+.ck-reviews-bar { flex: 1; height: 6px; background: #ececec; border-radius: 3px; overflow: hidden; }
+.ck-reviews-bar-fill { display: block; height: 100%; background: #E0A92E; border-radius: 3px; }
+.ck-reviews-bar-count { width: 48px; text-align: right; font-variant-numeric: tabular-nums; }
+
+.ck-reviews-list { display: flex; flex-direction: column; gap: 14px; }
+.ck-review {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.ck-review-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ck-review-name { font-size: 14px; font-weight: 600; color: #2B2B28; }
+.ck-review-stars { color: #E0A92E; font-size: 13px; letter-spacing: 1px; }
+.ck-review-meta { font-size: 12px; color: #707070; margin-top: 2px; }
+.ck-review-verified { color: #0a7c2d; font-weight: 600; }
+.ck-review-title { font-size: 14px; font-weight: 600; color: #2B2B28; margin-top: 8px; }
+.ck-review-text { font-size: 13px; color: #2B2B28; line-height: 1.55; margin-top: 4px; }
+.ck-reviews-footer { text-align: center; color: #707070; font-size: 12px; margin-top: 14px; }
+
+/* Mobile tweaks */
+@media (max-width: 750px) {
+  .ck-reviews-top { gap: 12px; padding: 12px 14px; }
+  .ck-reviews-score { min-width: 86px; }
+  .ck-reviews-bignum { font-size: 32px; }
+  .ck-reviews-bar-count { width: 40px; }
+}
+/* ==== /ck-test-redesign v1 ==== */
+</style>
+
+<script>
+(function(){
+  function initFbPixel(){
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','4042899062688144');
+    fbq('track','PageView');
+  }
+  // Ensure Pixel fires well after LCP (5-6s) to never compete with critical-path rendering
+  /* fb pixel disabled for Zoomi */
+})();
+</script>
+
+<script type="text/javascript">
+// Defer Clarity until after LCP to avoid blocking critical path (was High priority script eating 27KB on mobile)
+(function(){function loadClarity(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wam8gjkb35");}/* clarity disabled for Zoomi */})();
+</script>
+<script type="speculationrules">{"prefetch":[{"source":"list","urls":["/thankyou.html"],"eagerness":"eager"}]}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18185356647"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18185356647');
+</script>
+</head>
+<body>
+<!-- ck-test-redesign v1 - reservation banner -->
+<div id="ck-reserve-banner" class="ck-reserve-banner" role="status" aria-live="polite">
+  <span class="ck-reserve-lock" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path></svg>
+  </span>
+  <span class="ck-reserve-text">Your bundle is reserved - checkout closes in
+    <span id="ck-reserve-timer" class="ck-reserve-timer">10:00</span></span>
+</div>
+<!-- /ck-test-redesign v1 banner -->
+<div class="ck-header" style="position:relative">
+  <div class="ck-logo" style="font-family:Montserrat,'Montserrat',Arial,sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em;color:#2B2B28">Zoom<span style="color:#E25C3B">i</span></div>
+  <div class="ck-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+  <div class="ck-rating">Rated 4.8/5 by 2,600+ cat parents</div>
+  <div class="ck-bag"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg></div>
+</div>
+
+<!-- Mobile order summary toggle -->
+<div class="ck-mobile-summary open" id="mobileSummary" onclick="this.classList.toggle('open')">
+  <div class="ck-mobile-summary-bar">
+    <div class="ck-mobile-summary-left">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+      Show order summary <span class="ck-arrow">&#9662;</span>
+    </div>
+    <div class="ck-mobile-summary-right" id="mobileTotalDisplay"></div>
+  </div>
+  <div class="ck-mobile-summary-content" id="mobileSummaryContent">
+    <!-- Dynamically populated -->
+  </div>
+</div>
+
+<div class="ck-wrap">
+  <!-- LEFT: Form -->
+  <div class="ck-main">
+    <form id="checkout-form" autocomplete="on">
+
+      <!-- Express Checkout (Apple Pay / Google Pay) -->
+      <div class="ck-section" id="express-checkout-section">
+        <h2>Express checkout</h2>
+        <div id="payment-request-button"><div class="ck-pr-skeleton" id="pr-skeleton">Checking Apple Pay / Google Pay...</div></div>
+        <div class="ck-or-divider"><span>OR</span></div>
+      </div>
+
+
+      <!-- Contact -->
+      <div class="ck-section">
+        <h2>Email or Phone</h2>
+        <div class="ck-field">
+          <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+      <!-- Secure Checkout -->
+      <div class="ck-section">
+        <h2>Secure Checkout</h2>
+        <p class="ck-sub">All transactions are secure and encrypted. Your order includes free shipping &amp; returns and 24/7 access to our award-winning customer service</p>
+        <div id="card-element"></div>
+        <div id="card-error"></div>
+      </div>
+
+      <!-- Billing Address -->
+      <div class="ck-section">
+        <h2>Billing address</h2>
+        <div class="ck-field has-value">
+          <select id="country" name="country" autocomplete="country">
+            <option value="US" selected>United States</option>
+            <option value="CA">Canada</option>
+            <option value="GB">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="NL">Netherlands</option>
+            <option value="BR">Brazil</option>
+            <option value="MX">Mexico</option>
+            <option value="CO">Colombia</option>
+            <option value="AR">Argentina</option>
+            <option value="CL">Chile</option>
+            <option value="PE">Peru</option>
+            <option value="NZ">New Zealand</option>
+            <option value="IE">Ireland</option>
+            <option value="AT">Austria</option>
+            <option value="BE">Belgium</option>
+            <option value="PT">Portugal</option>
+            <option value="SE">Sweden</option>
+            <option value="NO">Norway</option>
+            <option value="DK">Denmark</option>
+            <option value="FI">Finland</option>
+            <option value="CH">Switzerland</option>
+            <option value="PL">Poland</option>
+            <option value="IN">India</option>
+            <option value="PH">Philippines</option>
+            <option value="SG">Singapore</option>
+            <option value="JP">Japan</option>
+            <option value="KR">South Korea</option>
+          </select>
+          <label for="country">Country/Region</label>
+        </div>
+        <div class="ck-row">
+          <div class="ck-field">
+            <input type="text" id="firstName" name="firstName" placeholder=" " autocomplete="given-name">
+            <label for="firstName">First name (optional)</label>
+          </div>
+          <div class="ck-field">
+            <input type="text" id="lastName" name="lastName" placeholder=" " autocomplete="family-name">
+            <label for="lastName">Last name</label>
+          </div>
+        </div>
+        <div class="ck-field">
+          <input type="text" id="address1" name="address1" placeholder=" " required autocomplete="address-line1">
+          <label for="address1">Address</label>
+        </div>
+        <div class="ck-field">
+          <input type="text" id="address2" name="address2" placeholder=" " autocomplete="address-line2">
+          <label for="address2">Apartment, suite, etc. (optional)</label>
+        </div>
+        <div class="ck-row3">
+          <div class="ck-field">
+            <input type="text" id="city" name="city" placeholder=" " required autocomplete="address-level2">
+            <label for="city">City</label>
+          </div>
+          <div class="ck-field has-value">
+            <select id="province" name="state" autocomplete="address-level1">
+              <option value="">State</option>
+              <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+            </select>
+            <label for="province">State</label>
+          </div>
+          <div class="ck-field">
+            <input type="text" id="zip" name="zip" placeholder=" " required autocomplete="postal-code">
+            <label for="zip">ZIP code</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="ck-section">
+        <div class="ck-field">
+          <input type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel">
+          <label for="phone">Mobile phone (optional)</label>
+        </div>
+        <p style="font-size:12px;color:#999;margin-top:4px">By providing your phone number, you agree to receive order updates via SMS.</p>
+      </div>
+
+      <!-- CTA -->
+      <button type="submit" class="ck-cta" id="submitBtn">Complete order</button>
+      <div id="form-error" style="color:#e32c2c;font-size:13px;text-align:center;margin-top:12px;min-height:20px"></div>
+
+      <!-- ck-test-redesign v1 - reviews section -->
+<div class="ck-section ck-reviews-section" id="ck-reviews">
+  <h2>What 2,617 cat parents are saying</h2>
+  <div class="ck-reviews-top">
+    <div class="ck-reviews-score">
+      <div class="ck-reviews-bignum">4.8</div>
+      <div class="ck-reviews-stars">★★★★★</div>
+      <div class="ck-reviews-meta">2,617 verified reviews</div>
+    </div>
+    <div class="ck-reviews-bars">
+      <div class="ck-reviews-bar-row"><span class="ck-reviews-bar-label">5★</span><span class="ck-reviews-bar"><span class="ck-reviews-bar-fill" style="width:88%"></span></span><span class="ck-reviews-bar-count">2,127</span></div>
+      <div class="ck-reviews-bar-row"><span class="ck-reviews-bar-label">4★</span><span class="ck-reviews-bar"><span class="ck-reviews-bar-fill" style="width:9%"></span></span><span class="ck-reviews-bar-count">218</span></div>
+      <div class="ck-reviews-bar-row"><span class="ck-reviews-bar-label">3★</span><span class="ck-reviews-bar"><span class="ck-reviews-bar-fill" style="width:2%"></span></span><span class="ck-reviews-bar-count">48</span></div>
+      <div class="ck-reviews-bar-row"><span class="ck-reviews-bar-label">2★</span><span class="ck-reviews-bar"><span class="ck-reviews-bar-fill" style="width:1%"></span></span><span class="ck-reviews-bar-count">17</span></div>
+      <div class="ck-reviews-bar-row"><span class="ck-reviews-bar-label">1★</span><span class="ck-reviews-bar"><span class="ck-reviews-bar-fill" style="width:0.3%"></span></span><span class="ck-reviews-bar-count">7</span></div>
+    </div>
+  </div>
+
+  <div class="ck-reviews-list">
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Mara T.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Savannah, 2 · 3 weeks ago</div>
+      <div class="ck-review-title">My speed demon finally has an outlet</div>
+      <div class="ck-review-text">My Savannah treated the apartment like a racetrack. Within five minutes of following the training card she was running on it herself. The 3am zoomies across my face are officially over and she's so much calmer.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Devon R.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Two Bengals · 1 month ago</div>
+      <div class="ck-review-title">Both my Bengals use it constantly</div>
+      <div class="ck-review-text">I was terrified they wouldn't touch it. Nope - both Bengals took to it in two days and now they trade off on it all evening. It's genuinely silent, which is the only reason I can run it at night. Worth every penny.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Priya S.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Domestic shorthair, 4 · 2 weeks ago</div>
+      <div class="ck-review-title">Held off because it's pricey. So glad I didn't.</div>
+      <div class="ck-review-text">I hesitated because $199 felt like a lot for a 'toy.' Three weeks in it's the best thing I've bought for her - less belly pudge, way less furniture destruction, and the white one actually looks nice in my living room.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Karen M.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Maine Coon, 5 · 1 month ago</div>
+      <div class="ck-review-title">Big enough for my 18 lb Maine Coon</div>
+      <div class="ck-review-text">Most wheels are too small for a big cat. This one is huge and rock-steady - no wobble even when he really gets going. He gets a proper run now and sleeps through the night instead of pacing.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Aisha K.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Sphynx, 3 · 3 weeks ago</div>
+      <div class="ck-review-title">Quiet enough for my anxious cat</div>
+      <div class="ck-review-text">I have a nervous Sphynx and chose this because reviews said it's silent. It really is. The smooth, quiet motion is exactly why she was willing to try it. She runs little bursts every evening now.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Marcus T.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Two cats · 2 months ago</div>
+      <div class="ck-review-title">The training guide is what sold me</div>
+      <div class="ck-review-text">Honestly the free get-them-running guide made the difference. Day one they sniffed it, day three they were both using it. Without that I think it would've just sat there. Great support too - answered my email in an hour.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Dawn R.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Tabby, 6 · 3 weeks ago</div>
+      <div class="ck-review-title">Vet suggested more exercise. This nailed it.</div>
+      <div class="ck-review-text">My vet flagged my indoor tabby as overweight. A month on the wheel and she's leaner, more playful, and not crying for attention at 2am. Easy 20-minute assembly and it's been silent and sturdy the whole time.</div>
+    </div>
+
+    <div class="ck-review">
+      <div class="ck-review-head">
+        <div class="ck-review-name">Greg P.</div>
+        <div class="ck-review-stars">★★★★★</div>
+      </div>
+      <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Abyssinian, 2 · 2 weeks ago</div>
+      <div class="ck-review-title">Took two days, then he claimed it</div>
+      <div class="ck-review-text">Slightly slow start - he ignored it the first day. By day two he figured out it moves and now he sprints on it like a maniac. The 90-day guarantee is why I felt safe trying it, but I won't be needing it.</div>
+    </div>
+
+  </div>
+  <div class="ck-reviews-footer">Showing 8 of 2,617 verified reviews</div>
+</div>
+<!-- /ck-test-redesign v1 reviews -->
+
+      <!-- Footer -->
+      <div class="ck-footer">
+        <a href="/returns.html" target="_blank">Refund policy</a>
+        <a href="/shipping.html" target="_blank">Shipping</a>
+        <a href="/privacy.html" target="_blank">Privacy policy</a>
+        <a href="/terms.html" target="_blank">Terms of service</a>
+        <a href="/contact.html" target="_blank">Contact</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- RIGHT: Order Summary (desktop) -->
+  <div class="ck-sidebar">
+    <div class="ck-sidebar-inner" id="desktopSummary">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+
+<script src="https://js.stripe.com/v3/" onerror="document.getElementById('stripe-error-msg')&&(document.getElementById('stripe-error-msg').textContent='Payment system failed to load. Please refresh the page or disable your ad blocker.')"></script>
+<div id="stripe-error-msg" style="color:red;font-weight:bold;text-align:center;padding:10px;display:none"></div>
+<script>
+// Show stripe-error-msg div only when it has content
+(function(){var el=document.getElementById('stripe-error-msg');if(el){new MutationObserver(function(){el.style.display=el.textContent?'block':'none';}).observe(el,{childList:true});}})();
+window.FunnelEngine = {
+  apiBaseUrl: "/t",
+  apiUrl: "https://api-pi-pied-75.vercel.app",
+  funnelId: "0e9b9651-03c0-48a5-894d-9b2380f87878",
+  pageId: "b58e3862-90b1-415e-a1ae-c30a49ef07d2",
+  pageType: "checkout",
+  products: [{"id":"202cd884-d91a-4427-8ac6-ac2d5e39bf08","name":"Zoomi Cat Exercise Wheel - 1 Wheel","price_cents":19900,"compare_at_price_cents":27900,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":true,"position":0},{"id":"d1889c32-3de4-4260-94d4-f429194b4da2","name":"Zoomi Cat Exercise Wheel - 2 Wheels","price_cents":37800,"compare_at_price_cents":55800,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":1},{"id":"e775342a-5a66-414a-a288-6a6e4ee961e2","name":"Zoomi Cat Exercise Wheel - 3 Wheels","price_cents":53700,"compare_at_price_cents":83700,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":2}],
+  stripePublishableKey: "pk_live_51SM9r7CV0B2KOmXXq0LDIO174zhFEaMqO3slq8HW8yFoZKedWrwIAYczzxCxQPYrVxoV6M3h1pjdUFoeMBAo71vL00coL89fee",
+  checkoutConfig: {"bump_enabled":false,"shipping_label":"Standard Shipping","free_shipping_label":"FREE Shipping","shipping_cost_cents":499,"shipping_threshold_cents":8000},
+
+  _checkoutProcessing: false,
+
+  async checkout(data) {
+    if (this._checkoutProcessing) return;
+    this._checkoutProcessing = true;
+    try {
+      const res = await fetch("https://api-pi-pied-75.vercel.app/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          funnel_id: this.funnelId,
+          page_id: this.pageId,
+          ...data,
+        }),
+      });
+      return res.json();
+    } catch (err) {
+      this._checkoutProcessing = false;
+      throw err;
+    } finally {
+      this._checkoutProcessing = false;
+    }
+  }
+};
+</script>
+<script>
+// --- Fix #4: Checkout email/phone/address auto-capture ---
+(function(){
+  var debounceTimer=null;
+  var lastEmail="";
+  var lastPhone="";
+  var lastFn="";
+  var lastLn="";
+  var lastCity="";
+  var lastState="";
+  var lastZip="";
+  var lastCountry="";
+  var emailLinked=false;
+  var checkoutReachedSent=false;
+
+  function isEmailInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.type==="email"||/email/i.test(el.name||"");
+  }
+  function isPhoneInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.type==="tel"||/phone/i.test(el.name||"");
+  }
+  function isFnInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.matches('input[name*="first"], input[name*="fname"], input[autocomplete="given-name"]');
+  }
+  function isLnInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.matches('input[name*="last"], input[name*="lname"], input[autocomplete="family-name"]');
+  }
+  function isCityInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.matches('input[name*="city"], input[autocomplete="address-level2"]');
+  }
+  function isStateInput(el){
+    if(!el)return false;
+    var tag=el.tagName;
+    if(tag!=="INPUT"&&tag!=="SELECT")return false;
+    return el.matches('input[name*="state"], input[name*="province"], select[name*="state"], select[name*="province"], input[autocomplete="address-level1"]');
+  }
+  function isZipInput(el){
+    if(!el||el.tagName!=="INPUT")return false;
+    return el.matches('input[name*="zip"], input[name*="postal"], input[autocomplete="postal-code"]');
+  }
+  function isCountryInput(el){
+    if(!el)return false;
+    var tag=el.tagName;
+    if(tag!=="INPUT"&&tag!=="SELECT")return false;
+    return el.matches('select[name*="country"], input[autocomplete="country"]');
+  }
+  function isCapturable(el){
+    return isEmailInput(el)||isPhoneInput(el)||isFnInput(el)||isLnInput(el)||isCityInput(el)||isStateInput(el)||isZipInput(el)||isCountryInput(el);
+  }
+
+  function handleInput(e){
+    var el=e.target;
+    if(isEmailInput(el)){
+      var val=el.value.trim();
+      if(val&&val!==lastEmail){lastEmail=val;scheduleCapture();}
+    }else if(isPhoneInput(el)){
+      var val2=el.value.trim();
+      if(val2&&val2!==lastPhone){lastPhone=val2;scheduleCapture();}
+    }else if(isFnInput(el)){
+      var v=el.value.trim();
+      if(v&&v!==lastFn){lastFn=v;scheduleCapture();}
+    }else if(isLnInput(el)){
+      var v2=el.value.trim();
+      if(v2&&v2!==lastLn){lastLn=v2;scheduleCapture();}
+    }else if(isCityInput(el)){
+      var v3=el.value.trim();
+      if(v3&&v3!==lastCity){lastCity=v3;scheduleCapture();}
+    }else if(isStateInput(el)){
+      var v4=el.value.trim();
+      if(v4&&v4!==lastState){lastState=v4;scheduleCapture();}
+    }else if(isZipInput(el)){
+      var v5=el.value.trim();
+      if(v5&&v5!==lastZip){lastZip=v5;scheduleCapture();}
+    }else if(isCountryInput(el)){
+      var v6=el.value.trim();
+      if(v6&&v6!==lastCountry){lastCountry=v6;scheduleCapture();}
+    }
+  }
+
+  function scheduleCapture(){
+    if(debounceTimer)clearTimeout(debounceTimer);
+    debounceTimer=setTimeout(function(){
+      // Also scan DOM for autofilled values not caught by events
+      var inputs=document.querySelectorAll("input, select");
+      for(var i=0;i<inputs.length;i++){
+        var el=inputs[i];var v=el.value?el.value.trim():"";if(!v)continue;
+        if(isEmailInput(el)&&v&&!lastEmail){lastEmail=v;}
+        else if(isPhoneInput(el)&&v&&!lastPhone){lastPhone=v;}
+        else if(isFnInput(el)&&v&&!lastFn){lastFn=v;}
+        else if(isLnInput(el)&&v&&!lastLn){lastLn=v;}
+        else if(isCityInput(el)&&v&&!lastCity){lastCity=v;}
+        else if(isStateInput(el)&&v&&!lastState){lastState=v;}
+        else if(isZipInput(el)&&v&&!lastZip){lastZip=v;}
+        else if(isCountryInput(el)&&v&&!lastCountry){lastCountry=v;}
+      }
+      var fe=window.FunnelEngine||{};
+      if(lastEmail)fe.user_email=lastEmail;
+      if(lastPhone)fe.user_phone=lastPhone;
+      if(lastFn)fe.user_fn=lastFn;
+      if(lastLn)fe.user_ln=lastLn;
+      if(lastCity)fe.user_city=lastCity;
+      if(lastState)fe.user_state=lastState;
+      if(lastZip)fe.user_zip=lastZip;
+      if(lastCountry)fe.user_country=lastCountry;
+      if(lastEmail&&!emailLinked){
+        emailLinked=true;
+        var vid=fe.visitorId||null;
+        if(vid){
+          fetch("/t/link",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({visitor_id:vid,user_email:lastEmail}),keepalive:true});
+        }
+        // Save lead to database (email, phone, name) for marketing
+        var leadProductId=new URLSearchParams(location.search).get("product")||new URLSearchParams(location.search).get("offer")||null;
+        fetch("https://api-pi-pied-75.vercel.app/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:lastEmail,phone:lastPhone||null,first_name:lastFn||null,last_name:lastLn||null,funnel_id:"0e9b9651-03c0-48a5-894d-9b2380f87878",funnel_slug:"zoomi",visitor_id:vid,page_id:"b58e3862-90b1-415e-a1ae-c30a49ef07d2",product_id:leadProductId}),keepalive:true});
+      }
+      // Update lead with new info (phone, name) even after initial capture
+      if(lastEmail&&emailLinked&&(lastPhone||lastFn||lastLn)){
+        fetch("https://api-pi-pied-75.vercel.app/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:lastEmail,phone:lastPhone||null,first_name:lastFn||null,last_name:lastLn||null}),keepalive:true});
+      }
+      if(lastEmail&&typeof fe.track==="function"&&!checkoutReachedSent){
+        checkoutReachedSent=true;
+        fe.track("checkout_reached",{revenue_cents:(window.FunnelEngine&&window.FunnelEngine._calculatedTotal)||0});
+      }
+    },300);
+  }
+
+  function attachListeners(root){
+    var inputs=root.querySelectorAll("input, select");
+    for(var i=0;i<inputs.length;i++){
+      if(isCapturable(inputs[i])){
+        inputs[i].addEventListener("input",handleInput);
+        inputs[i].addEventListener("change",handleInput);
+      }
+    }
+  }
+
+  // Observe DOM for dynamically added inputs
+  var observer=new MutationObserver(function(mutations){
+    for(var i=0;i<mutations.length;i++){
+      var nodes=mutations[i].addedNodes;
+      for(var j=0;j<nodes.length;j++){
+        var node=nodes[j];
+        if(node.nodeType===1){
+          if((node.tagName==="INPUT"||node.tagName==="SELECT")&&isCapturable(node)){
+            node.addEventListener("input",handleInput);
+            node.addEventListener("change",handleInput);
+          }
+          if(node.querySelectorAll){
+            attachListeners(node);
+          }
+        }
+      }
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded",function(){
+    attachListeners(document);
+    observer.observe(document.body,{childList:true,subtree:true});
+  });
+
+  // Also listen via delegation
+  document.addEventListener("input",handleInput,true);
+  document.addEventListener("change",handleInput,true);
+})();
+
+// --- Shipping + Bump Order ---
+// Must run after DOMContentLoaded so page.js_content has built the order summary DOM
+document.addEventListener("DOMContentLoaded", function() {
+  var cc = window.FunnelEngine.checkoutConfig || {};
+  var thresholdCents = cc.shipping_threshold_cents || 0;
+  var shippingCents = cc.shipping_cost_cents || 0;
+  var bumpEnabled = cc.bump_enabled || false;
+  var bumpTitle = cc.bump_title || "Add This To Your Order";
+  var bumpDesc = cc.bump_description || "";
+  var bumpCents = cc.bump_price_cents || 0;
+  var bumpImg = cc.bump_image_url || "";
+
+  // Find the selected main product — same logic as the checkout page JS
+  var prods = (window.FunnelEngine.products && window.FunnelEngine.products.length)
+    ? window.FunnelEngine.products : [];
+  var urlParams = new URLSearchParams(location.search);
+  var selectedId = urlParams.get("product") || urlParams.get("offer");
+  var mainProd = null;
+  if (selectedId) mainProd = prods.find(function(p) { return p.id === selectedId; });
+  if (!mainProd) mainProd = prods.find(function(p) { return p.is_primary; });
+  if (!mainProd) mainProd = prods.find(function(p) { return (p.price_cents || 0) > 0; });
+
+  // Base total = main product price only (not sum of all products)
+  var baseTotal = mainProd ? (mainProd.price_cents || 0) : 0;
+  // Fallback: parse from rendered .ck-total-price element
+  if (!baseTotal) {
+    var priceEl = document.querySelector(".ck-total-price");
+    if (priceEl) {
+      var m = priceEl.textContent.replace(/[^0-9.]/g, "");
+      baseTotal = Math.round(parseFloat(m) * 100) || 0;
+    }
+  }
+
+  var bumpChecked = false;
+
+  function fmt(cents) { return "$" + (cents / 100).toFixed(2); }
+
+  function updateTotals() {
+    var total = baseTotal;
+    var shipping = 0;
+
+    if (bumpChecked) total += bumpCents;
+
+    if (thresholdCents > 0 && total < thresholdCents && shippingCents > 0) {
+      shipping = shippingCents;
+    }
+
+    var grandTotal = total + shipping;
+
+    // Update shipping row
+    var shippingEls = document.querySelectorAll(".ck-free, .ck-shipping-cost");
+    shippingEls.forEach(function(el) {
+      if (shipping > 0) {
+        el.textContent = fmt(shipping);
+        el.className = "ck-shipping-cost";
+        el.style.color = "#333";
+      } else {
+        el.textContent = "FREE";
+        el.className = "ck-free";
+        el.style.color = "#16a34a";
+      }
+    });
+
+    // Update total displays
+    document.querySelectorAll(".ck-total-price").forEach(function(el) { el.textContent = fmt(grandTotal); });
+
+    // Update mobile total
+    var mobileTotal = document.getElementById("mobileTotalDisplay");
+    if (mobileTotal) mobileTotal.textContent = fmt(grandTotal);
+
+    // Store for checkout submission
+    window.FunnelEngine._calculatedTotal = grandTotal;
+    window.FunnelEngine._shippingCents = shipping;
+    window.FunnelEngine._bumpAdded = bumpChecked;
+  }
+
+  // Inject bump offer HTML before the CTA button
+  if (bumpEnabled && bumpCents > 0) {
+    var ctaBtn = document.querySelector(".ck-cta");
+    if (ctaBtn) {
+      var bumpHtml = '<div id="bump-order" style="border:2px dashed #c9956b;border-radius:8px;padding:16px;margin:0 0 20px;background:#fffbf5;">';
+      bumpHtml += '<label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;">';
+      bumpHtml += '<input type="checkbox" id="bump-checkbox" style="margin-top:3px;width:18px;height:18px;accent-color:#c9956b;flex-shrink:0;">';
+      bumpHtml += '<div style="flex:1;">';
+      bumpHtml += '<div style="font-weight:700;font-size:14px;color:#1a1a2e;margin-bottom:4px;">' + bumpTitle + '</div>';
+      if (bumpDesc) bumpHtml += '<p style="font-size:13px;color:#666;line-height:1.5;margin:0 0 6px;">' + bumpDesc + '</p>';
+      bumpHtml += '<div style="font-weight:600;color:#c9956b;font-size:15px;">+ ' + fmt(bumpCents) + '</div>';
+      bumpHtml += '</div>';
+      if (bumpImg) bumpHtml += '<img loading="lazy" src="' + bumpImg + '" style="width:60px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;" alt="">';
+      bumpHtml += '</label></div>';
+
+      var bumpDiv = document.createElement("div");
+      bumpDiv.innerHTML = bumpHtml;
+      ctaBtn.parentNode.insertBefore(bumpDiv.firstChild, ctaBtn);
+
+      document.getElementById("bump-checkbox").addEventListener("change", function() {
+        bumpChecked = this.checked;
+        // Show/hide bump rows in all order summaries (desktop + mobile both rendered)
+        document.querySelectorAll(".ck-bump-row").forEach(function(el) {
+          el.style.display = bumpChecked ? "" : "none";
+        });
+        document.querySelectorAll(".ck-bump-price").forEach(function(el) {
+          el.textContent = bumpChecked ? fmt(bumpCents) : "";
+        });
+        updateTotals();
+      });
+    }
+  }
+
+  // Run initial calculation after order summary is rendered
+  updateTotals();
+});
+</script>
+<script>
+(function(){
+  var api="/t";
+  var fid="0e9b9651-03c0-48a5-894d-9b2380f87878";
+  var pid="b58e3862-90b1-415e-a1ae-c30a49ef07d2";
+
+  // Cookie helper — read only (cookies are set server-side)
+  function getCk(n){var m=document.cookie.match(new RegExp("(?:^|; )"+n+"=([^;]*)"));return m?decodeURIComponent(m[1]):null;}
+
+  // UUID v4 generator
+  function uuid(){return([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,function(c){return(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16)});}
+
+  // URL params
+  var u=new URLSearchParams(location.search);
+
+  // --- Fingerprint fallback for cookieless visitors ---
+  function generateFingerprint(){
+    var components=[
+      navigator.userAgent||"",
+      navigator.language||"",
+      screen.width+"x"+screen.height,
+      screen.colorDepth||"",
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency||"",
+      navigator.platform||""
+    ];
+    var str=components.join("|");
+    // Simple hash (djb2)
+    var hash=5381;
+    for(var i=0;i<str.length;i++){hash=((hash<<5)+hash)+str.charCodeAt(i);hash=hash&hash;}
+    return"fp_"+Math.abs(hash).toString(36);
+  }
+
+  // --- Visitor ID resolution (4-tier fallback) ---
+  // 1. Server-injected (from Set-Cookie) → 2. Cookie → 3. URL param → 4. localStorage → 5. Fingerprint
+  var vid="3d8f0375-bef8-4af0-a86e-10ba606bc901"||getCk("_fe_vid")||u.get("_vid")||localStorage.getItem("fe_vid")||generateFingerprint();
+  try{localStorage.setItem("fe_vid",vid);}catch(e){}
+
+  // Session ID
+  var sid=sessionStorage.getItem("fe_sid")||vid.slice(0,8)+"-"+Date.now().toString(36);
+  try{sessionStorage.setItem("fe_sid",sid);}catch(e){}
+
+  // --- Click ID resolution: cookie first, then URL param fallback ---
+  function getClickIds(){
+    return{
+      fbc:getCk("_fbc")||u.get("_fbc")||null,
+      fbp:getCk("_fbp")||u.get("_fbp")||null,
+      gclid:getCk("_gcl")||u.get("gclid")||u.get("_gcl")||null,
+      ttclid:getCk("_ttclid")||u.get("ttclid")||u.get("_ttclid")||null
+    };
+  }
+
+  // --- URL parameter persistence: rewrite internal links ---
+  function getTrackingParams(){
+    var clicks=getClickIds();
+    var p={_vid:vid};
+    if(clicks.fbc)p._fbc=clicks.fbc;
+    if(clicks.fbp)p._fbp=clicks.fbp;
+    if(clicks.gclid)p._gcl=clicks.gclid;
+    if(clicks.ttclid)p._ttclid=clicks.ttclid;
+    // Carry UTMs forward
+    var utms=["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+    for(var i=0;i<utms.length;i++){var v=u.get(utms[i]);if(v)p[utms[i]]=v;}
+    // Carry Meta dynamic params forward
+    var metaParams=["ad_id","adset_id","campaign_id","ad_name","adset_name","campaign_name","placement","site_source_name"];
+    for(var i=0;i<metaParams.length;i++){var v=u.get(metaParams[i]);if(v)p[metaParams[i]]=v;}
+    return p;
+  }
+
+  function appendTrackingToUrl(href){
+    try{
+      var url=new URL(href,location.origin);
+      // Only add to same-origin links
+      if(url.origin!==location.origin)return href;
+      var params=getTrackingParams();
+      for(var k in params){if(!url.searchParams.has(k))url.searchParams.set(k,params[k]);}
+      return url.toString();
+    }catch(e){return href;}
+  }
+
+  // Intercept all link clicks to append tracking params
+  document.addEventListener("click",function(e){
+    var a=e.target;
+    while(a&&a.tagName!=="A")a=a.parentElement;
+    if(!a||!a.href)return;
+    // Skip external links, anchors, javascript:
+    if(a.hostname&&a.hostname!==location.hostname)return;
+    if(a.href.startsWith("#")||a.href.startsWith("javascript:"))return;
+    a.href=appendTrackingToUrl(a.href);
+  },true);
+
+  // Also intercept form submissions
+  document.addEventListener("submit",function(e){
+    var form=e.target;
+    if(!form||form.tagName!=="FORM")return;
+    var action=form.action||location.href;
+    try{
+      var url=new URL(action,location.origin);
+      if(url.origin!==location.origin)return;
+      var params=getTrackingParams();
+      for(var k in params){
+        if(!form.querySelector('input[name="'+k+'"]')){
+          var inp=document.createElement("input");inp.type="hidden";inp.name=k;inp.value=params[k];
+          form.appendChild(inp);
+        }
+      }
+    }catch(e2){}
+  },true);
+
+  // Main track function
+  function track(t,m){
+    // For checkout_completed, use deterministic event_id based on order_id
+    // so the Stripe webhook safety net uses the same ID for Meta deduplication
+    var eid=(t==="checkout_completed"&&m&&m.order_id)?"purchase_"+m.order_id:uuid();
+    var clicks=getClickIds();
+    var fe=window.FunnelEngine||{};
+    // Sweep form fields RIGHT NOW to capture any values missed by input events (autofill, paste)
+    try{document.querySelectorAll("input,select").forEach(function(el){var v=(el.value||"").trim();if(!v)return;if(el.type==="email"||/email/i.test(el.name||"")){if(!fe.user_email)fe.user_email=v;}else if(el.type==="tel"||/phone/i.test(el.name||"")){if(!fe.user_phone)fe.user_phone=v;}else if(/first|fname/i.test(el.name||"")||el.autocomplete==="given-name"){if(!fe.user_fn)fe.user_fn=v;}else if(/last|lname/i.test(el.name||"")||el.autocomplete==="family-name"){if(!fe.user_ln)fe.user_ln=v;}else if(/city/i.test(el.name||"")||el.autocomplete==="address-level2"){if(!fe.user_city)fe.user_city=v;}else if(/state|province/i.test(el.name||"")){if(!fe.user_state)fe.user_state=v;}else if(/zip|postal/i.test(el.name||"")){if(!fe.user_zip)fe.user_zip=v;}else if(/country/i.test(el.name||"")&&el.tagName==="SELECT"){if(!fe.user_country)fe.user_country=v;}});}catch(e){}
+    var payload={
+      event_type:t,funnel_id:fid,page_id:pid,visitor_id:vid,session_id:sid,event_id:eid,
+      fbc:clicks.fbc,fbp:clicks.fbp,gclid:clicks.gclid,ttclid:clicks.ttclid,
+      user_email:fe.user_email||m&&m.user_email||null,user_phone:fe.user_phone||m&&m.user_phone||null,
+      user_fn:fe.user_fn||m&&m.user_fn||null,user_ln:fe.user_ln||m&&m.user_ln||null,
+      user_city:fe.user_city||m&&m.user_city||null,user_state:fe.user_state||m&&m.user_state||null,
+      user_zip:fe.user_zip||m&&m.user_zip||null,user_country:fe.user_country||m&&m.user_country||null,
+      revenue_cents:(m&&m.revenue_cents!=null)?m.revenue_cents:null,
+      order_id:(m&&m.order_id)||null,
+      metadata:Object.assign({url:location.href,referrer:document.referrer,utm_source:u.get("utm_source"),utm_medium:u.get("utm_medium"),utm_campaign:u.get("utm_campaign"),utm_content:u.get("utm_content"),utm_term:u.get("utm_term"),ad_id:u.get("ad_id"),adset_id:u.get("adset_id"),campaign_id:u.get("campaign_id"),ad_name:u.get("ad_name"),adset_name:u.get("adset_name"),campaign_name:u.get("campaign_name"),placement:u.get("placement"),site_source_name:u.get("site_source_name")},m||{})
+    };
+    fetch(api,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload),keepalive:true});
+
+    // Fire browser pixels with same event_id for deduplication
+    var metaMap={page_view:"PageView",add_to_cart:"AddToCart",checkout_reached:"InitiateCheckout",checkout_completed:"Purchase"};
+    var ttMap={page_view:"Pageview",add_to_cart:"AddToCart",checkout_reached:"InitiateCheckout",checkout_completed:"CompletePayment"};
+    var gMap={page_view:"page_view",add_to_cart:"add_to_cart",checkout_reached:"begin_checkout",checkout_completed:"purchase"};
+
+    // Meta pixel with Advanced Matching
+    if(typeof fbq==="function"){try{
+      var am={};
+      if(fe.user_email)am.em=fe.user_email;
+      if(fe.user_phone)am.ph=fe.user_phone;
+      if(fe.user_fn)am.fn=fe.user_fn;
+      if(fe.user_ln)am.ln=fe.user_ln;
+      if(fe.user_zip)am.zp=fe.user_zip;
+      if(Object.keys(am).length>0)fbq("init","update",am);
+      var metaEv=metaMap[t];
+      if(metaEv)fbq("track",metaEv,Object.assign({currency:"USD",value:(m&&m.revenue_cents?m.revenue_cents/100:0)},m||{}),{eventID:eid});
+    }catch(e){}}
+
+    // TikTok pixel
+    if(typeof ttq==="function"||typeof ttq==="object"){try{
+      var ttEv=ttMap[t];
+      if(ttEv&&ttq.track)ttq.track(ttEv,{currency:"USD",value:(m&&m.revenue_cents?m.revenue_cents/100:0)},{event_id:eid});
+    }catch(e){}}
+
+    // Google gtag
+    if(typeof gtag==="function"){try{
+      var gEv=gMap[t];
+      if(gEv)gtag("event",gEv,{currency:"USD",value:(m&&m.revenue_cents?m.revenue_cents/100:0),send_to:"default"});
+    }catch(e){}}
+  }
+
+  // Fire ViewContent on landing pages (separate from PageView)
+  var pt="checkout";
+  // Deduplicate page_view: only fire once per page per session
+  var pvKey="pv_"+window.FunnelEngine.pageId;
+  if(!sessionStorage.getItem(pvKey)){
+    sessionStorage.setItem(pvKey,"1");
+    track("page_view");
+  }
+  if(pt==="landing"||pt==="custom"){
+    if(typeof fbq==="function"){try{fbq("track","ViewContent",{content_type:"product"},{eventID:uuid()});}catch(e){}}
+    // add_to_cart: fire once when user clicks a link that goes to checkout or has a product param
+    document.addEventListener("click",function atcHandler(e){
+      var a=e.target;
+      while(a&&a.tagName!=="A")a=a.parentElement;
+      if(!a||!a.href)return;
+      if(a.hostname&&a.hostname!==location.hostname)return;
+      if(a.href.startsWith("#")||a.href.startsWith("javascript:"))return;
+      // Only fire add_to_cart if link goes to checkout or contains a product/offer param
+      var isCheckoutLink=a.href.indexOf("/checkout")!==-1;
+      var hasProductParam=a.href.indexOf("product=")!==-1||a.href.indexOf("offer=")!==-1;
+      if(!isCheckoutLink&&!hasProductParam)return;
+      document.removeEventListener("click",atcHandler,true);
+      var atcMeta={};
+      try{var atcUrl=new URL(a.href);var atcPid=atcUrl.searchParams.get("product")||atcUrl.searchParams.get("offer");if(atcPid)atcMeta.product_id=atcPid;}catch(e2){}
+      track("add_to_cart",atcMeta);
+    },true);
+  }
+  // Navigation helper: appends tracking params to any internal URL
+  function navUrl(path){return appendTrackingToUrl(path);}
+
+  window.FunnelEngine=Object.assign(window.FunnelEngine||{},{track:track,visitorId:vid,sessionId:sid,_navUrl:navUrl});
+})();
+</script>
+<script>// --- Dynamic Checkout ---
+// Products are injected by the renderer via window.FunnelEngine.products
+(function(){
+  var FE = window.FunnelEngine || {};
+  var products = FE.products || [];
+  var apiUrl = (typeof FE.apiUrl === "string" && FE.apiUrl) ? FE.apiUrl : "https://api-pi-pied-75.vercel.app";
+  var funnelId = FE.funnelId || "";
+  var pageId = FE.pageId || "";
+
+  // Determine which offer was selected (from URL param or default to primary)
+  var params = new URLSearchParams(location.search);
+  var selectedProductId = params.get("product") || params.get("offer");
+
+  // Find the selected main product (primary or first non-bump product)
+  var mainProduct = null;
+  var bonusProducts = [];
+
+  if (selectedProductId) {
+    mainProduct = products.find(function(p) { return p.id === selectedProductId; });
+  }
+  if (!mainProduct) {
+    mainProduct = products.find(function(p) { return p.is_primary; });
+  }
+  if (!mainProduct) {
+    mainProduct = products.find(function(p) { return p.price_cents > 0; });
+  }
+
+  // Collect bonus/free products (price = 0 or type bump)
+  products.forEach(function(p) {
+    if (p.id !== (mainProduct && mainProduct.id) && p.price_cents === 0) {
+      bonusProducts.push(p);
+    }
+  });
+
+  // Only show ebooks for 2+ bottle offers
+  // Detect "Buy X Get Y FREE" pattern → paidBottles + freeBottles for itemized summary
+  var bottleCount = 1;
+  var paidBottles = 0;
+  var freeBottles = 0;
+  if (mainProduct) {
+    var bxgyMatch = mainProduct.name.match(/Buy\s+(\d+)\s*,?\s*Get\s+(\d+)\s*FREE/i);
+    if (bxgyMatch) {
+      paidBottles = parseInt(bxgyMatch[1]);
+      freeBottles = parseInt(bxgyMatch[2]);
+      bottleCount = paidBottles + freeBottles;
+    } else {
+      var nameMatch = mainProduct.name.match(/(\d+)\s*Bottle/i);
+      if (nameMatch) bottleCount = parseInt(nameMatch[1]);
+    }
+  }
+  if (bottleCount < 2) {
+    bonusProducts = []; // No free ebooks for 1-bottle
+  }
+
+  // Format price
+  function fmt(cents) {
+    return "$" + (cents / 100).toFixed(2);
+  }
+
+  // Build order summary HTML
+  function buildSummaryHTML(isMobile) {
+    if (!mainProduct) return "<p>No product selected</p>";
+
+    var html = "";
+
+    // Main product - render paid + free bottles as separate rows for "Buy X Get Y FREE" SKUs
+    if (paidBottles > 0 && freeBottles > 0) {
+      // PAID BOTTLES row
+      html += '<div class="ck-product">';
+      html += '  <div class="ck-product-img">';
+      html += '    <img loading="lazy" src="https://zoomi.shop/images/prod_main.jpg" alt="Zoomi">';
+      html += '    <div class="ck-product-badge">' + paidBottles + '</div>';
+      html += '  </div>';
+      html += '  <div class="ck-product-info">';
+      html += '    <div class="ck-product-name">Zoomi Wheel - ' + paidBottles + ' Wheel' + (paidBottles > 1 ? 's' : '') + '</div>';
+      html += '    <div class="ck-product-variant">Cat Exercise Wheel</div>';
+      html += '  </div>';
+      html += '  <div class="ck-product-price">' + fmt(mainProduct.price_cents) + '</div>';
+      html += '</div>';
+      // FREE BOTTLES row
+      html += '<div class="ck-product" style="margin-top:8px">';
+      html += '  <div class="ck-product-img">';
+      html += '    <img loading="lazy" src="https://zoomi.shop/images/prod_main.jpg" alt="Zoomi FREE">';
+      html += '    <div class="ck-product-badge" style="background:#16a34a">' + freeBottles + '</div>';
+      html += '  </div>';
+      html += '  <div class="ck-product-info">';
+      html += '    <div class="ck-product-name">Zoomi Wheel - ' + freeBottles + ' Wheel' + (freeBottles > 1 ? 's' : '') + '</div>';
+      html += '    <div class="ck-product-variant" style="color:#16a34a;font-weight:500">Included FREE</div>';
+      html += '  </div>';
+      html += '  <div class="ck-product-price" style="color:#16a34a;font-weight:500">FREE</div>';
+      html += '</div>';
+    } else {
+      // Standard single row (1 bottle, 2 bottle, 3 bottle SKUs)
+      html += '<div class="ck-product">';
+      html += '  <div class="ck-product-img">';
+      if (mainProduct.image_url) {
+        html += '    <img loading="lazy" src="' + mainProduct.image_url + '" alt="' + mainProduct.name + '">';
+      }
+      if (bottleCount > 1) {
+        html += '    <div class="ck-product-badge">' + bottleCount + '</div>';
+      }
+      html += '  </div>';
+      html += '  <div class="ck-product-info">';
+      html += '    <div class="ck-product-name">' + mainProduct.name + '</div>';
+      if (mainProduct.offer_description) {
+        html += '    <div class="ck-product-variant">' + mainProduct.offer_description + '</div>';
+      }
+      html += '  </div>';
+      html += '  <div class="ck-product-price">' + fmt(mainProduct.price_cents) + '</div>';
+      html += '</div>';
+    }
+
+    // Bonus ebooks
+    bonusProducts.forEach(function(bp) {
+      html += '<div class="ck-product" style="margin-top:8px">';
+      html += '  <div class="ck-product-img">';
+      if (bp.image_url) {
+        html += '    <img loading="lazy" src="' + bp.image_url + '" alt="' + bp.name + '" style="border-radius:4px">';
+      }
+      html += '  </div>';
+      html += '  <div class="ck-product-info">';
+      html += '    <div class="ck-product-name">' + bp.name + '</div>';
+      html += '    <div class="ck-product-variant" style="color:#16a34a;font-weight:500">Included FREE</div>';
+      html += '  </div>';
+      html += '  <div class="ck-product-price" style="color:#16a34a;font-weight:500">FREE</div>';
+      html += '</div>';
+    });
+
+    html += '<hr class="ck-divider">';
+
+    // Savings first
+    if (mainProduct.compare_at_price_cents && mainProduct.compare_at_price_cents > mainProduct.price_cents) {
+      html += '<div class="ck-summary-row"><span>Savings</span><span style="color:#16a34a;font-weight:500">-' + fmt(mainProduct.compare_at_price_cents - mainProduct.price_cents) + '</span></div>';
+    }
+
+    // Subtotal
+    html += '<div class="ck-summary-row"><span>Subtotal</span><span>' + fmt(mainProduct.price_cents) + '</span></div>';
+
+    // Shipping
+    html += '<div class="ck-summary-row"><span>Shipping</span><span class="ck-free">FREE</span></div>';
+
+    // Bump row - hidden by default, shown dynamically when checkbox is ticked
+    var bumpLabel = (FE.checkoutConfig && FE.checkoutConfig.bump_label) ? FE.checkoutConfig.bump_label : 'Order Bump';
+    html += '<div class="ck-summary-row ck-bump-row" style="display:none"><span>' + bumpLabel + '</span><span class="ck-bump-price"></span></div>';
+
+    // Total
+    html += '<div class="ck-summary-row ck-total"><span>Total</span><span><span class="ck-total-currency">USD</span> <span class="ck-total-price">' + fmt(mainProduct.price_cents) + '</span></span></div>';
+
+    return html;
+  }
+
+  // Render summaries
+  var desktopEl = document.getElementById("desktopSummary");
+  var mobileContentEl = document.getElementById("mobileSummaryContent");
+  var mobileTotalEl = document.getElementById("mobileTotalDisplay");
+
+  if (desktopEl) desktopEl.innerHTML = buildSummaryHTML(false);
+  if (mobileContentEl) mobileContentEl.innerHTML = buildSummaryHTML(true);
+  if (mobileTotalEl && mainProduct) mobileTotalEl.textContent = fmt(mainProduct.price_cents);
+
+  // --- Stripe Setup ---
+  var stripeKey = FE.stripePublishableKey || "";
+  if (!stripeKey) {
+    // Fallback: try to find it in a meta tag or data attribute
+    var meta = document.querySelector('meta[name="stripe-key"]');
+    if (meta) stripeKey = meta.getAttribute("content") || "";
+  }
+
+  var stripe, elements, cardElement;
+  if (stripeKey && typeof Stripe !== "undefined") {
+    stripe = Stripe(stripeKey);
+    elements = stripe.elements();
+    cardElement = elements.create("card", {
+      style: {
+        base: {
+          fontSize: "14px",
+          fontFamily: "system-ui, -apple-system, sans-serif",
+          color: "#333",
+          "::placeholder": { color: "#999" }
+        },
+        invalid: { color: "#e32c2c" }
+      },
+      hidePostalCode: true
+    });
+    cardElement.mount("#card-element");
+    cardElement.on("change", function(ev) {
+      document.getElementById("card-error").textContent = ev.error ? ev.error.message : "";
+    });
+  }
+
+  // --- Form Submission ---
+  var form = document.getElementById("checkout-form");
+  var submitBtn = document.getElementById("submitBtn");
+  var formError = document.getElementById("form-error");
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    formError.textContent = "";
+
+    var email = document.getElementById("email").value.trim();
+    var address1 = document.getElementById("address1").value.trim();
+    var city = document.getElementById("city").value.trim();
+    var zip = document.getElementById("zip").value.trim();
+    var country = document.getElementById("country").value;
+
+    if (!email) { formError.textContent = "Email is required"; return; }
+    if (!address1) { formError.textContent = "Address is required"; return; }
+    if (!city) { formError.textContent = "City is required"; return; }
+    if (!zip) { formError.textContent = "ZIP code is required"; return; }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
+
+    try {
+      var firstName = document.getElementById("firstName").value.trim();
+      var lastName = document.getElementById("lastName").value.trim();
+      var phone = document.getElementById("phone").value.trim();
+      var province = document.getElementById("province").value;
+
+      var productIds = [mainProduct.id];
+      bonusProducts.forEach(function(bp) { productIds.push(bp.id); });
+
+      var address = {
+        first_name: firstName, last_name: lastName,
+        address1: address1, address2: document.getElementById("address2").value.trim(),
+        city: city, province: province, country: country, zip: zip, phone: phone
+      };
+
+      var checkoutUrl = (apiUrl || "") + "/api/checkout";
+      var checkoutRes = await fetch(checkoutUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          funnel_id: funnelId, page_id: pageId, product_ids: productIds,
+          visitor_id: FE.visitorId || null, session_id: FE.sessionId || null,
+          customer: { email: email, first_name: firstName, last_name: lastName, phone: phone },
+          shipping_address: address, billing_address: address,
+          shipping_cents: (window.FunnelEngine && window.FunnelEngine._shippingCents) || 0,
+          bump_cents: (window.FunnelEngine && window.FunnelEngine._bumpAdded && window.FunnelEngine.checkoutConfig && window.FunnelEngine.checkoutConfig.bump_price_cents) || 0
+        })
+      });
+
+      var checkoutData = await checkoutRes.json();
+      if (!checkoutRes.ok || checkoutData.error) throw new Error(checkoutData.error || "Checkout failed");
+
+      var clientSecret = checkoutData.data.client_secret;
+      var orderId = checkoutData.data.order_id;
+
+      var result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: (firstName + " " + lastName).trim() || undefined,
+            email: email, phone: phone || undefined,
+            address: {
+              line1: address1, line2: document.getElementById("address2").value.trim() || undefined,
+              city: city, state: province || undefined, postal_code: zip, country: country
+            }
+          }
+        }
+      });
+
+      if (result.error) throw new Error(result.error.message);
+
+      // Track purchase
+      if (FE.track) {
+        FE.track("checkout_completed", {
+          revenue_cents: (window.FunnelEngine && window.FunnelEngine._calculatedTotal) || mainProduct.price_cents,
+          order_id: orderId,
+          currency: mainProduct.currency || "usd"
+        });
+      }
+
+      // Create upsell session and redirect to first upsell (or thank-you if no upsells)
+      var funnelSlug = location.pathname.split("/")[1] || "primeflow";
+      var paymentIntentId = result.paymentIntent ? result.paymentIntent.id : "";
+
+      try {
+        var sessRes = await fetch((apiUrl || "") + "/api/upsell/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            order_id: orderId,
+            payment_intent_id: paymentIntentId
+          })
+        });
+        var sessData = await sessRes.json();
+
+        if (sessData.data && sessData.data.session_id && sessData.data.first_page) {
+          // Redirect to first upsell with session ID
+          var upsellUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          if (FE._navUrl) upsellUrl = FE._navUrl(upsellUrl);
+          window.location.href = upsellUrl;
+        } else {
+          // No upsells - go to thank you
+          var thankUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          if (FE._navUrl) thankUrl = FE._navUrl(thankUrl);
+          window.location.href = thankUrl;
+        }
+      } catch (sessErr) {
+        // If session creation fails, still go to thank you (don't block the customer)
+        console.error("Upsell session error:", sessErr);
+        var fallbackUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+        if (FE._navUrl) fallbackUrl = FE._navUrl(fallbackUrl);
+        window.location.href = fallbackUrl;
+      }
+
+    } catch (err) {
+      formError.textContent = err.message || "Something went wrong. Please try again.";
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Complete order";
+    }
+  });
+
+  // Clear field errors on input
+  document.querySelectorAll(".ck-field input, .ck-field select").forEach(function(el) {
+    el.addEventListener("input", function() {
+      formError.textContent = "";
+    });
+  });
+})();
+
+// --- Apple Pay / Google Pay via Payment Request Button ---
+// Runs after the original checkout JS (which creates the bump checkbox)
+(function(){
+  var FE = window.FunnelEngine || {};
+  var stripeKey = FE.stripePublishableKey || "";
+  if (!stripeKey || typeof Stripe === "undefined") return;
+
+  var stripe = Stripe(stripeKey);
+  var products = FE.products || [];
+  var params = new URLSearchParams(location.search);
+  var selectedProductId = params.get("product") || params.get("offer");
+  var mainProduct = null;
+  if (selectedProductId) mainProduct = products.find(function(p){ return p.id === selectedProductId; });
+  if (!mainProduct) mainProduct = products.find(function(p){ return p.is_primary; });
+  if (!mainProduct) mainProduct = products.find(function(p){ return p.price_cents > 0; });
+  if (!mainProduct) return;
+
+  var cc = FE.checkoutConfig || {};
+  var thresholdCents = cc.shipping_threshold_cents || 0;
+  var shippingCostCents = cc.shipping_cost_cents || 0;
+  var bumpEnabled = cc.bump_enabled || false;
+  var bumpCents = cc.bump_price_cents || 0;
+  var bumpLabel = cc.bump_label || "Order Bump";
+  var productCents = mainProduct.price_cents;
+
+  function getShipping(subtotal) {
+    if (thresholdCents > 0 && subtotal < thresholdCents && shippingCostCents > 0) return shippingCostCents;
+    return 0;
+  }
+
+  function isBumpChecked() {
+    var el = document.getElementById("bump-checkbox");
+    return bumpEnabled && el && el.checked;
+  }
+
+  function getCurrentTotal() {
+    var bump = isBumpChecked() ? bumpCents : 0;
+    var subtotal = productCents + bump;
+    var ship = getShipping(subtotal);
+    return { product: productCents, bump: bump, shipping: ship, total: subtotal + ship };
+  }
+
+  // Use the FunnelEngine calculated total if available (most accurate - same as the order summary)
+  function getFinalTotal() {
+    if (FE._calculatedTotal) return FE._calculatedTotal;
+    return getCurrentTotal().total;
+  }
+
+  // We create the payment request with a placeholder amount.
+  // The REAL amount is set when the user clicks the button via paymentRequest.update().
+  var initial = getCurrentTotal();
+
+  var paymentRequest = stripe.paymentRequest({
+    country: "US",
+    currency: "usd",
+    total: { label: "Zoomi", amount: initial.total },
+    requestPayerName: true,
+    requestPayerEmail: true,
+    requestShipping: true,
+    shippingOptions: [{
+      id: "standard",
+      label: initial.shipping > 0 ? (cc.shipping_label || "Shipping") : (cc.free_shipping_label || "FREE Shipping"),
+      detail: initial.shipping > 0 ? "5-7 business days" : "Free standard shipping",
+      amount: initial.shipping,
+    }],
+  });
+
+  var prButton = stripe.elements().create("paymentRequestButton", {
+    paymentRequest: paymentRequest,
+    style: { paymentRequestButton: { type: "buy", theme: "dark", height: "48px" } },
+  });
+
+  // ck-test-redesign v1 - always-visible express checkout
+  // Section starts visible in HTML. If no express method is available,
+  // hide it after the probe resolves. If available, mount the Stripe PR button
+  // (this replaces the skeleton placeholder inside #payment-request-button).
+  paymentRequest.canMakePayment().then(function(result) {
+    var sec = document.getElementById("express-checkout-section");
+    var slot = document.getElementById("payment-request-button");
+    var skel = document.getElementById("pr-skeleton");
+    if (result) {
+      if (skel && skel.parentNode) skel.parentNode.removeChild(skel);
+      prButton.mount("#payment-request-button");
+      if (sec) sec.style.display = "block";
+    } else {
+      // No Apple Pay / Google Pay / Link available on this device - hide the section
+      if (sec) sec.style.display = "none";
+    }
+  }).catch(function() {
+    var sec = document.getElementById("express-checkout-section");
+    if (sec) sec.style.display = "none";
+  });
+
+  // Keep payment request amount in sync whenever bump changes
+  // Use MutationObserver to detect when bump checkbox is added to DOM
+  function attachBumpListener() {
+    var el = document.getElementById("bump-checkbox");
+    if (!el) return;
+    el.addEventListener("change", function() {
+      var c = getCurrentTotal();
+      try {
+        paymentRequest.update({
+          total: { label: "Zoomi", amount: c.total },
+          shippingOptions: [{
+            id: "standard",
+            label: c.shipping > 0 ? (cc.shipping_label || "Shipping") : (cc.free_shipping_label || "FREE Shipping"),
+            detail: c.shipping > 0 ? "5-7 business days" : "Free standard shipping",
+            amount: c.shipping,
+          }],
+        });
+      } catch(e) { /* paymentRequest.update may not be supported in all browsers */ }
+    });
+  }
+
+  // Try immediately, and also observe for when it gets injected
+  attachBumpListener();
+  var observer = new MutationObserver(function() {
+    if (document.getElementById("bump-checkbox")) {
+      attachBumpListener();
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+
+  // Handle payment - use the LIVE total at click time
+  paymentRequest.on("paymentmethod", async function(ev) {
+    try {
+      var current = getCurrentTotal();
+      // Also check FunnelEngine's calculated total as the source of truth
+      var finalTotal = getFinalTotal();
+
+      var funnelId = FE.funnelId || "";
+      var pageId = FE.pageId || "";
+      var apiUrl = FE.apiUrl || "https://api-pi-pied-75.vercel.app";
+      var productIds = [mainProduct.id];
+      products.forEach(function(p){ if (p.id !== mainProduct.id && p.price_cents === 0) productIds.push(p.id); });
+
+      var shipping = ev.shippingAddress || {};
+      var payer = ev.payerName || "";
+      var nameParts = payer.split(" ");
+      var firstName = nameParts[0] || "";
+      var lastName = nameParts.slice(1).join(" ") || "";
+
+      var address = {
+        first_name: firstName, last_name: lastName,
+        address1: shipping.addressLine ? shipping.addressLine[0] : "",
+        address2: shipping.addressLine ? shipping.addressLine[1] || "" : "",
+        city: shipping.city || "", province: shipping.region || "",
+        country: shipping.country || "US", zip: shipping.postalCode || "",
+        phone: ev.payerPhone || "",
+      };
+
+      var checkoutRes = await fetch(apiUrl + "/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          funnel_id: funnelId, page_id: pageId, product_ids: productIds,
+          visitor_id: FE.visitorId || null, session_id: FE.sessionId || null,
+          customer: { email: ev.payerEmail, first_name: firstName, last_name: lastName, phone: ev.payerPhone || "" },
+          shipping_address: address, billing_address: address,
+          shipping_cents: current.shipping,
+          bump_cents: current.bump,
+        })
+      });
+
+      var checkoutData = await checkoutRes.json();
+      if (!checkoutRes.ok || checkoutData.error) { ev.complete("fail"); return; }
+
+      var clientSecret = checkoutData.data.client_secret;
+      var orderId = checkoutData.data.order_id;
+
+      var result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: ev.paymentMethod.id,
+      }, { handleActions: false });
+
+      if (result.error) { ev.complete("fail"); return; }
+
+      ev.complete("success");
+
+      if (FE.track) {
+        FE.track("checkout_completed", { revenue_cents: finalTotal, order_id: orderId, currency: "usd", payment_method: "wallet" });
+      }
+
+      var funnelSlug = location.pathname.split("/")[1] || "checkout-test";
+      try {
+        var sessRes = await fetch(apiUrl + "/api/upsell/session", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ order_id: orderId, payment_intent_id: result.paymentIntent ? result.paymentIntent.id : "" })
+        });
+        var sessData = await sessRes.json();
+        if (sessData.data && sessData.data.session_id && sessData.data.first_page) {
+          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+        } else {
+          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+        }
+      } catch(e) {
+        window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+      }
+    } catch(err) {
+      ev.complete("fail");
+      console.error("Apple Pay error:", err);
+    }
+  });
+})();
+
+
+// ==== ck-test-redesign v1 - reservation timer ====
+(function(){
+  var el = document.getElementById("ck-reserve-timer");
+  var banner = document.getElementById("ck-reserve-banner");
+  if (!el || !banner) return;
+  var DURATION = 10 * 60 * 1000; // 10 minutes
+  var endAt = Date.now() + DURATION;
+  function tick() {
+    var remaining = endAt - Date.now();
+    if (remaining <= 0) {
+      el.textContent = "00:00";
+      banner.classList.add("ck-reserve-expired");
+      banner.querySelector(".ck-reserve-text").firstChild.textContent =
+        "Still reserved - take your time ";
+      return;
+    }
+    var m = Math.floor(remaining / 60000);
+    var s = Math.floor((remaining % 60000) / 1000);
+    el.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  }
+  tick();
+})();
+// ==== /ck-test-redesign v1 timer ====
+</script>
+<script>
+// --- SPEED: Instant click (navigate on mousedown, ~100ms faster than waiting for click) ---
+(function(){
+  var navigating=false;
+  function instantNav(e){
+    if(navigating)return;
+    var a=e.target;
+    while(a&&a.tagName!=="A")a=a.parentElement;
+    if(!a||!a.href)return;
+    // Skip external, anchor, javascript links
+    if(a.hostname&&a.hostname!==location.hostname)return;
+    if(a.href.startsWith("#")||a.href.startsWith("javascript:"))return;
+    if(a.target==="_blank")return;
+    // Skip if modifier keys (open in new tab)
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    // Navigate immediately
+    navigating=true;
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href=a.href;
+  }
+  // mousedown fires ~100ms before click
+  document.addEventListener("mousedown",instantNav,{capture:true});
+  // touchstart fires ~300ms before click on mobile
+  document.addEventListener("touchstart",function(e){
+    var a=e.target;
+    while(a&&a.tagName!=="A")a=a.parentElement;
+    if(!a||!a.href)return;
+    if(a.hostname&&a.hostname!==location.hostname)return;
+    if(a.href.startsWith("#")||a.href.startsWith("javascript:"))return;
+    if(a.target==="_blank")return;
+    // Prefetch on touch, navigate on touchend (preserves scroll)
+    var link=document.createElement("link");link.rel="prefetch";link.href=a.href;
+    document.head.appendChild(link);
+  },{capture:true,passive:true});
+})();
+// --- SPEED: Prefetch on hover intent (before click) ---
+(function(){
+  var prefetched={};
+  document.addEventListener("mouseover",function(e){
+    var a=e.target;
+    while(a&&a.tagName!=="A")a=a.parentElement;
+    if(!a||!a.href||prefetched[a.href])return;
+    if(a.hostname&&a.hostname!==location.hostname)return;
+    if(a.href.startsWith("#")||a.href.startsWith("javascript:"))return;
+    prefetched[a.href]=true;
+    var link=document.createElement("link");link.rel="prefetch";link.href=a.href;
+    document.head.appendChild(link);
+  },{capture:true,passive:true});
+})();
+</script>
+</body>
+</html>
