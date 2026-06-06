@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='8'%20fill='%23E25C3B'/%3E%3Ctext%20x='16'%20y='23'%20font-family='Arial'%20font-size='19'%20font-weight='bold'%20fill='white'%20text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
 <title>Secure Checkout | Zoomi</title>
 <meta name="description" content="Complete your Zoomi order � secure checkout. 90-day guarantee, lifetime warranty, free shipping.">
 
@@ -448,7 +449,7 @@ body{font-family:Montserrat,'Montserrat',system-ui,-apple-system,BlinkMacSystemF
       </div>
       <div class="ck-review-meta"><span class="ck-review-verified">✓ Verified Buyer</span> · Domestic shorthair, 4 · 2 weeks ago</div>
       <div class="ck-review-title">Held off because it's pricey. So glad I didn't.</div>
-      <div class="ck-review-text">I hesitated because $199 felt like a lot for a 'toy.' Three weeks in it's the best thing I've bought for her - less belly pudge, way less furniture destruction, and the white one actually looks nice in my living room.</div>
+      <div class="ck-review-text">I hesitated because $249 felt like a lot for a 'toy.' Three weeks in it's the best thing I've bought for her - less belly pudge, way less furniture destruction, and the white one actually looks nice in my living room.</div>
     </div>
 
     <div class="ck-review">
@@ -537,7 +538,7 @@ window.FunnelEngine = {
   funnelId: "0e9b9651-03c0-48a5-894d-9b2380f87878",
   pageId: "b58e3862-90b1-415e-a1ae-c30a49ef07d2",
   pageType: "checkout",
-  products: [{"id":"202cd884-d91a-4427-8ac6-ac2d5e39bf08","name":"Zoomi Cat Exercise Wheel - 1 Wheel","price_cents":19900,"compare_at_price_cents":27900,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":true,"position":0},{"id":"d1889c32-3de4-4260-94d4-f429194b4da2","name":"Zoomi Cat Exercise Wheel - 2 Wheels","price_cents":37800,"compare_at_price_cents":55800,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":1},{"id":"e775342a-5a66-414a-a288-6a6e4ee961e2","name":"Zoomi Cat Exercise Wheel - 3 Wheels","price_cents":53700,"compare_at_price_cents":83700,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":2}],
+  products: [{"id":"202cd884-d91a-4427-8ac6-ac2d5e39bf08","name":"Zoomi Cat Exercise Wheel - 1 Wheel","price_cents":24900,"compare_at_price_cents":32900,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":true,"position":0},{"id":"d1889c32-3de4-4260-94d4-f429194b4da2","name":"Zoomi Cat Exercise Wheel - 2 Wheels","price_cents":47800,"compare_at_price_cents":65800,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":1},{"id":"e775342a-5a66-414a-a288-6a6e4ee961e2","name":"Zoomi Cat Exercise Wheel - 3 Wheels","price_cents":68700,"compare_at_price_cents":98700,"currency":"usd","image_url":"https://zoomi.shop/images/prod_main.jpg","offer_label":null,"offer_description":null,"shipping_cents":0,"is_primary":false,"position":2}],
   stripePublishableKey: "pk_live_51SM9r7CV0B2KOmXXq0LDIO174zhFEaMqO3slq8HW8yFoZKedWrwIAYczzxCxQPYrVxoV6M3h1pjdUFoeMBAo71vL00coL89fee",
   checkoutConfig: {"bump_enabled":false,"shipping_label":"Standard Shipping","free_shipping_label":"FREE Shipping","shipping_cost_cents":499,"shipping_threshold_cents":8000},
 
@@ -1333,19 +1334,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (sessData.data && sessData.data.session_id && sessData.data.first_page) {
           // Redirect to first upsell with session ID
-          var upsellUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          var upsellUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
           if (FE._navUrl) upsellUrl = FE._navUrl(upsellUrl);
           window.location.href = upsellUrl;
         } else {
           // No upsells - go to thank you
-          var thankUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          var thankUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
           if (FE._navUrl) thankUrl = FE._navUrl(thankUrl);
           window.location.href = thankUrl;
         }
       } catch (sessErr) {
         // If session creation fails, still go to thank you (don't block the customer)
         console.error("Upsell session error:", sessErr);
-        var fallbackUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+        var fallbackUrl = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
         if (FE._navUrl) fallbackUrl = FE._navUrl(fallbackUrl);
         window.location.href = fallbackUrl;
       }
@@ -1556,12 +1557,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         var sessData = await sessRes.json();
         if (sessData.data && sessData.data.session_id && sessData.data.first_page) {
-          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
         } else {
-          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+          window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
         }
       } catch(e) {
-        window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||19900)/100);
+        window.location.href = "/thankyou.html?value=" + ((window.FunnelEngine&&window.FunnelEngine._calculatedTotal||24900)/100);
       }
     } catch(err) {
       ev.complete("fail");
