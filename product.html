@@ -618,7 +618,7 @@ function lpPickColor(el){
   lpUpdateBtn();
 }
 function lpUpdateBtn(){
-  var url='/checkout.html?product='+LP.PIDS[LP.qty]+'&color='+encodeURIComponent(LP.color);
+  var url='checkout.html?product='+LP.PIDS[LP.qty]+'&color='+encodeURIComponent(LP.color);
   var btn=document.getElementById('lpAddBtn');
   if(btn){btn.textContent='Add to Cart — $'+LP.price; btn.setAttribute('href',url);}
   var sb=document.getElementById('lpStickyBtn'); if(sb) sb.setAttribute('href',url);
